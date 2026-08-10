@@ -1,13 +1,6 @@
 """
-sequence_io.py
-==============
-NEXAGEN Scientific Initiative — Mystery Sequence Identifier
-İştirakçı 1: Sequence Manager & Entrez Interface
-
-Bu modul 3 əsas məsuliyyəti yerinə yetirir:
-1. FASTA faylını/mətni Bio.SeqIO ilə təhlükəsiz oxumaq.
-2. Ardıcıllığın növünü (DNT, RNT və ya Zülal) avtomatik təyin etmək və uyğun BLAST alətini (blastn vs blastp) seçmək.
-3. NCBI Accession ID üçün Bio.Entrez istifadə edərək orqanizm adı və gen təsvirini çəkmək.
+Sequence Manager and Entrez Interface Module.
+Handles FASTA parsing, sequence type detection, and NCBI Entrez metadata retrieval.
 """
 
 import os
@@ -19,57 +12,49 @@ from Bio.SeqRecord import SeqRecord
 
 def parse_fasta(input_source: str) -> SeqRecord:
     """
-    FASTA formatındakı fayl yolunu və ya raw FASTA mətni qəbul edir və Bio.SeqRecord obyektini qaytarır.
+    Parses a FASTA file path or FASTA formatted string.
 
-    :param input_source: Fayl yolu (path) və ya FASTA formatında mətn string-i
-    :return: SeqRecord obyekti
-    :raises ValueError: Əgər daxiletmə düzgün FASTA formatında deyilsə
-    :raises FileNotFoundError: Əgər fayl tapılmazsa
+    :param input_source: File path or raw FASTA string
+    :return: SeqRecord object
     """
     if not input_source or not isinstance(input_source, str):
-        raise ValueError("Daxil edilən məlumat boş ola bilməz və string olmalıdır.")
+        raise ValueError("Input source must be a non-empty string.")
 
-    # Əgər input verilən fayl yoludursa
     if os.path.exists(input_source):
         try:
             with open(input_source, "r") as handle:
                 records = list(SeqIO.parse(handle, "fasta"))
             if not records:
-                raise ValueError(f"'{input_source}' faylında heç bir FASTA ardıcıllığı tapılmadı.")
-            return records[0]  # İlk ardıcıllığı qaytarırıq
+                raise ValueError(f"No FASTA sequence found in '{input_source}'.")
+            return records[0]
         except Exception as e:
-            raise ValueError(f"FASTA faylını oxuyarkən xəta baş verdi: {e}")
-
-    # Əgər input raw FASTA mətndirsə (məsələn: ">seq1\nATGCG...")
+            raise ValueError(f"Error reading FASTA file: {e}")
     elif input_source.strip().startswith(">"):
         try:
             string_handle = io.StringIO(input_source.strip())
             records = list(SeqIO.parse(string_handle, "fasta"))
             if not records:
-                raise ValueError("Daxil edilən mətndə keçərli FASTA ardıcıllığı tapılmadı.")
+                raise ValueError("No valid FASTA sequence found in string input.")
             return records[0]
         except Exception as e:
-            raise ValueError(f"FASTA mətnini pars edərkən xəta baş verdi: {e}")
+            raise ValueError(f"Error parsing FASTA string: {e}")
     else:
-        raise FileNotFoundError(f"Fayl tapılmadı və ya daxil edilən mətn FASTA formatında deyil: '{input_source}'")
+        raise FileNotFoundError(f"File not found or invalid FASTA input: '{input_source}'")
 
 
 def detect_sequence_type(seq_record: SeqRecord) -> Dict[str, Union[str, int]]:
     """
-    SeqRecord obyektindəki ardıcıllığı analiz edərək onun DNT, RNT və ya Zülal (Protein) olduğunu təyin edir
-    və uyğun BLAST alətini (blastn vs blastp) və verilənlər bazasını (nt vs nr) seçir.
+    Analyzes sequence composition to determine whether it is DNA, RNA, or Protein,
+    and selects the corresponding BLAST program and database.
 
-    :param seq_record: Bio.SeqRecord obyekti
-    :return: Ardıcıllıq məlumatları olan lüğət (dict)
+    :param seq_record: SeqRecord object
+    :return: Dictionary containing sequence metadata and BLAST parameters
     """
     sequence_str = str(seq_record.seq).upper().strip()
     if not sequence_str:
-        raise ValueError("Ardıcıllıq zənciri boşdur.")
+        raise ValueError("Sequence is empty.")
 
-    # Nukleotid (DNT/RNT) simvolları (kənarlaşdırma payı ilə N daxil olmaqla)
     dna_rna_chars = set("ATCGUN")
-    
-    # Ardıcıllıqdakı simvolların neçə faizinin nukleotid olduğunu hesablayaq
     valid_nuc_count = sum(1 for char in sequence_str if char in dna_rna_chars)
     nuc_ratio = valid_nuc_count / len(sequence_str)
 
@@ -94,20 +79,18 @@ def detect_sequence_type(seq_record: SeqRecord) -> Dict[str, Union[str, int]]:
     }
 
 
-def fetch_ncbi_metadata(accession_id: str, email: str = "nexagen.bioinfo@gmail.com", db: Optional[str] = None) -> Dict[str, str]:
+def fetch_ncbi_metadata(accession_id: str, email: str = "user@example.com", db: Optional[str] = None) -> Dict[str, str]:
     """
-    NCBI Accession ID üçün Bio.Entrez istifadə edərək orqanizmin tam taksonomik adını və gen təsvirini (definition) çəkir.
+    Fetches organism name and definition for a given accession ID using NCBI Entrez.
 
-    :param accession_id: NCBI Accession ID (məsələn: 'NM_001301717' və ya 'NP_001005353')
-    :param email: NCBI Entrez tələbinə uyğun istifadəçi e-poçtu
-    :param db: 'nucleotide' və ya 'protein'. Əgər verilməzsə avtomatik sorğulanır.
-    :return: {"accession_id": ..., "organism": ..., "definition": ...}
+    :param accession_id: NCBI Accession ID
+    :param email: User email required by NCBI Entrez policy
+    :param db: Target database ('nucleotide' or 'protein')
+    :return: Dictionary containing accession_id, organism, and definition
     """
     Entrez.email = email
-    
-    # DB təyin olunmayıbsa avtomatik sınayırıq (nucleotide -> protein)
     databases_to_try = [db] if db else ["nucleotide", "protein"]
-    
+
     for target_db in databases_to_try:
         try:
             handle = Entrez.esummary(db=target_db, id=accession_id, retmode="xml")
@@ -115,11 +98,9 @@ def fetch_ncbi_metadata(accession_id: str, email: str = "nexagen.bioinfo@gmail.c
             handle.close()
 
             if records:
-                # ESummary cavabından məlumatı çıxarırıq
                 doc_sum = records[0]
-                organism = doc_sum.get("Organism", "Naməlum Orqanizm")
-                definition = doc_sum.get("Title", doc_sum.get("Caption", "Təsvir tapılmadı"))
-                
+                organism = doc_sum.get("Organism", "Unknown Organism")
+                definition = doc_sum.get("Title", doc_sum.get("Caption", "No description available"))
                 return {
                     "accession_id": accession_id,
                     "organism": organism,
@@ -129,13 +110,9 @@ def fetch_ncbi_metadata(accession_id: str, email: str = "nexagen.bioinfo@gmail.c
         except Exception:
             continue
 
-    # Əgər esummary tapmasa fallback olaraq efetch sınaya bilərik
     return {
         "accession_id": accession_id,
-        "organism": "Təyin olunmadı",
-        "definition": "Metadata əldə edilə bilmədi",
+        "organism": "Unknown Organism",
+        "definition": "Metadata unavailable",
         "database_used": "none"
     }
-
-
-

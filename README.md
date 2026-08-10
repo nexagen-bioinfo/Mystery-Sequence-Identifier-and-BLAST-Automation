@@ -1,92 +1,78 @@
-# 🧬 Mystery Sequence Identifier & BLAST Automation Pipeline
+# Mystery Sequence Identifier & BLAST Automation Pipeline
 
-**NEXAGEN Scientific Initiative — Bioinformatika və Süni İntellekt Təşəbbüsü (2026)**
-
-Bu proqram naməlum bioloji DNT/RNT və ya Zülal ardıcıllıqlarını (FASTA formatında) avtomatik təyin edən, NCBI (National Center for Biotechnology Information) bazaları ilə inteqrasiya olunan və identifikasiya hesabatları (CSV və Excel) hazırlayan modulyar bioinformatika boru kəməridir (pipeline).
+A modular bioinformatics pipeline for identifying unknown biological DNA, RNA, or Protein sequences (in FASTA format), integrating with NCBI (National Center for Biotechnology Information) databases, and exporting structured analysis reports (CSV and Excel format).
 
 ---
 
-## 🏛️ Layihə Arxitekturası və Modullar
+## Architecture and Work Division
 
-Layihə 3 əsas modula bölünür:
+The project is structured into three main modules:
 
-| Rol / İştirakçı | Məsuliyyət Sahəsi | Çıxış Faylı / Modul |
+| Participant | Responsibility | Output Module |
 | :--- | :--- | :--- |
-| **İştirakçı 1** | FASTA oxuyucu, DNT/RNT/Zülal növünün təyini, BLAST alətinin (`blastn` vs `blastp`) seçilməsi və NCBI Entrez metadata sorğuları. | [`sequence_io.py`](sequence_io.py) |
-| **İştirakçı 2** | `Bio.Blast.NCBIWWW` ilə `nt` və ya `nr` bazalarına uzaqdan sorğu göndərilməsi, Timeout/Exception Handling və XML keçləmə sistemi. | [`blast_engine.py`](blast_engine.py) |
-| **İştirakçı 3** | `Bio.Blast.NCBIXML` vasitəsilə XML faylının pars edilməsi, E-value/Identity filtrlənməsi və CSV/Excel eksportu. | [`report_writer.py`](report_writer.py) |
+| **Participant 1** | FASTA file parsing, sequence type detection (DNA, RNA, Protein), BLAST tool selection (`blastn` vs `blastp`), and NCBI Entrez metadata retrieval. | [`sequence_io.py`](sequence_io.py) |
+| **Participant 2** | Remote query execution via `Bio.Blast.NCBIWWW` against `nt` or `nr` databases, network timeout/exception handling, and raw XML caching. | [`blast_engine.py`](blast_engine.py) |
+| **Participant 3** | XML parsing using `Bio.Blast.NCBIXML`, statistical filtering (E-value / Identity %), and CSV/Excel report generation. | [`report_writer.py`](report_writer.py) |
 
 ---
 
-## ⚙️ Quraşdırılma (Installation)
+## Installation
 
-### 1. Repozitoriyanı klonlayın:
+### 1. Clone the repository:
 ```bash
 git clone https://github.com/nexagen-bioinfo/Mystery-Sequence-Identifier-and-BLAST-Automation.git
 cd Mystery-Sequence-Identifier-and-BLAST-Automation
 ```
 
-### 2. Virtual mühiti (venv) yaradın və aktivləşdirin:
+### 2. Create and activate a virtual environment:
 ```bash
 python3 -m venv venv
 source venv/bin/activate  # macOS / Linux
 # venv\Scripts\activate   # Windows
 ```
 
-### 3. Tələb olunan asılılıqları quraşdırın:
+### 3. Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
 ---
 
-## 🚀 İstifadə Qaydası (Usage)
+## Usage
 
-Bütün boru kəməri terminaldan tək əmrlə `main.py` skripti vasitəsilə icra olunur:
+Run the pipeline from the command line using `main.py`:
 
 ```bash
 python main.py --input data/PZ716984.fasta
 ```
 
-### 🎛️ Əlavə Seçimlər və Parametrlər (CLI Options):
+### CLI Arguments
 
 ```bash
-# E-value və Identity filtrlərini özünüz təyin edin:
+# Specify custom E-value, Identity %, and Top Hıts threshold:
 python main.py --input data/PZ716984.fasta --evalue 1e-10 --identity 95.0 --top 10
 
-# Keşlənmiş XML-ə baxmadan yenidən NCBI-a sorğu göndərmək üçün:
+# Force remote BLAST query ignoring cached XML:
 python main.py --input data/PZ716984.fasta --force-reblast
 ```
 
-#### Parametr Açıqlamaları:
-* `--input` / `-i`: **(Məcburi)** Analiz ediləcək FASTA faylının yolu.
-* `--evalue` / `-e`: Maksimum E-value həddi *(Default: 1e-5)*.
-* `--identity` / `-id`: Minimum Oxşarlıq Faizi (Identity %) *(Default: 90.0)*.
-* `--top` / `-t`: Hesabata daxil ediləcək ən yaxşı matç sayısı *(Default: 5)*.
-* `--force-reblast` / `-f`: Keş faylını yeniləyərək təzədən NCBI-a sorğu göndərir.
+#### Argument Details:
+* `--input` / `-i`: **(Required)** Path to input FASTA sequence file.
+* `--evalue` / `-e`: Maximum E-value cutoff *(Default: 1e-5)*.
+* `--identity` / `-id`: Minimum Identity percentage cutoff *(Default: 90.0)*.
+* `--top` / `-t`: Number of top alignment matches to report *(Default: 5)*.
+* `--force-reblast` / `-f`: Bypass local cache and force new NCBI query.
 
 ---
 
-## 📂 Çıxış Faylları (Output Deliverables)
+## Project Structure and Output Files
 
-Boru kəməri icra olunduqda aşağıdakı qovluqlar və fayllar avtomatik yaradılır:
-
-1. **`cache/`**: NCBI-dan gələn xammal XML faylları müvəqqəti saxlanc kimi buraya yazılır (təkrar sorğuların qarşısını alır).
-2. **`reports/`**: Səliqəli CSV və Excel hesabatları buraya eksport edilir (sütunlar: *Accession ID, Organism Name, Definition, Alignment Length, Bit Score, E-value, Identity %*).
-
----
-
-## 🧪 Unit Testlərin İcra Edilməsi
-
-Bütün modulların düzgün işlədiyini yoxlamaq üçün test suitini icra edin:
-
-```bash
-python -m unittest discover tests
-```
+* **`cache/`**: Contains raw XML response files returned from NCBI queries to prevent redundant network requests.
+* **`reports/`**: Output directory for generated CSV and Excel reports.
+* **`data/`**: Sample FASTA sequences for testing and validation.
 
 ---
 
-## 📜 Lisenziya və İştirakçılar
+## License and Author Information
 
-* **Təşkilat:** NEXAGEN Scientific Initiative
-* **İl:** 2026
+NEXAGEN Scientific Initiative (2026)

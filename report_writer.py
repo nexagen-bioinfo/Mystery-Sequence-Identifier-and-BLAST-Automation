@@ -1,13 +1,6 @@
 """
-report_writer.py
-================
-NEXAGEN Scientific Initiative — Mystery Sequence Identifier
-İştirakçı 3: XML Parser & Report Generator
-
-Bu modul 3 əsas məsuliyyəti yerinə yetirir:
-1. Bio.Blast.NCBIXML modulu vasitəsilə XML faylını pars etmək.
-2. Gələn nəticələri statistik filtrlərdən keçirmək (E-value < 1e-5 və Identity % > 90%).
-3. Ən yaxşı 5 hit (Top 5 Alignment Matches) üçün CSV və Excel formatında səliqəli hesabat yaratmaq.
+XML Parser and Report Generator Module.
+Parses BLAST XML results, applies statistical filtering, and exports CSV/Excel reports.
 """
 
 import os
@@ -25,17 +18,17 @@ def parse_blast_xml(
     fetch_organism: bool = True
 ) -> List[Dict[str, Any]]:
     """
-    BLAST XML faylını oxuyur, filtrləyir və ən yaxşı top_n uyğunluğu qaytarır.
+    Parses BLAST XML output, applies filtering rules, and returns top N alignment hits.
 
-    :param xml_filepath: XML faylının yolu
-    :param max_evalue: Maksimum E-value həddi (default 1e-5)
-    :param min_identity: Minimum Identity % həddi (default 90.0%)
-    :param top_n: Qaytarılacaq ən yaxşı uyğunluq sayı (default 5)
-    :param fetch_organism: NCBI Entrez vasitəsilə orqanizm adını dəqiqləşdirmək
-    :return: Filtrlənmiş uyğunluqlar siyahısı (dict)
+    :param xml_filepath: Path to the XML file
+    :param max_evalue: Maximum E-value threshold
+    :param min_identity: Minimum identity percentage threshold
+    :param top_n: Number of top matches to return
+    :param fetch_organism: Resolve organism name via Entrez if missing
+    :return: List of filtered alignment hit dictionaries
     """
     if not os.path.exists(xml_filepath):
-        raise FileNotFoundError(f"XML faylı tapılmadı: {xml_filepath}")
+        raise FileNotFoundError(f"XML file not found: {xml_filepath}")
 
     results = []
 
@@ -53,25 +46,20 @@ def parse_blast_xml(
                 bit_score = float(hsp.bits)
                 identity_pct = (hsp.identities / align_length) * 100.0 if align_length > 0 else 0.0
 
-                # 1. Filtrləmə qaydaları: E-value < 1e-5 VƏ Identity % > 90%
                 if e_value <= max_evalue and identity_pct >= min_identity:
-                    
-                    # Orqanizm adını başlıqdan və ya Entrez-dən çəkirik
-                    organism_name = "Naməlum Orqanizm"
+                    organism_name = "Unknown Organism"
                     definition = full_title
-                    
-                    # Başlıqdan Orqanizm adını süzmək (məsələn [Homo sapiens])
+
                     if "[" in full_title and "]" in full_title:
                         try:
                             organism_name = full_title.split("[")[-1].split("]")[0]
                         except Exception:
                             pass
 
-                    # İştirakçı 1-in Entrez funksiyası ilə Orqanizm adını zənginləşdiririk
-                    if fetch_organism and organism_name == "Naməlum Orqanizm" and accession_id:
+                    if fetch_organism and organism_name == "Unknown Organism" and accession_id:
                         meta = fetch_ncbi_metadata(accession_id)
                         organism_name = meta.get("organism", organism_name)
-                        if meta.get("definition") and meta["definition"] != "Təsvir tapılmadı":
+                        if meta.get("definition") and meta["definition"] != "No description available":
                             definition = meta["definition"]
 
                     results.append({
@@ -84,10 +72,8 @@ def parse_blast_xml(
                         "Identity (%)": round(identity_pct, 2)
                     })
 
-    # Nəticələri E-value-yə (kiçikdən böyüyə) və Bit Score-a (böyükdən kiçiyə) görə çeşidləyirik
     results.sort(key=lambda x: (x["E-value"], -x["Bit Score"]))
 
-    # Unikal Accession ID-lər üzrə ən yaxşı top_n nəticəni saxlayırıq
     seen_accessions = set()
     top_results = []
     for item in results:
@@ -107,19 +93,18 @@ def export_reports(
     base_name: str = "blast_report"
 ) -> Dict[str, str]:
     """
-    Filtrlənmiş nəticələri CSV və Excel fayllarına eksport edir.
+    Exports filtered results to CSV and Excel format.
 
-    :param results: Filtrlənmiş nəticələr siyahısı
-    :param output_dir: Hesabat fayllarının saxlanacağı qovluq
-    :param base_name: Hesabat faylının əsas adı
-    :return: {"csv": csv_path, "excel": excel_path}
+    :param results: List of filtered alignment results
+    :param output_dir: Directory to save generated reports
+    :param base_name: Base filename for output files
+    :return: Dictionary containing file paths for CSV and Excel files
     """
     os.makedirs(output_dir, exist_ok=True)
 
     csv_path = os.path.abspath(os.path.join(output_dir, f"{base_name}.csv"))
     excel_path = os.path.abspath(os.path.join(output_dir, f"{base_name}.xlsx"))
 
-    # Sütunların ardıcıllığını təyin edirik
     columns = [
         "Accession ID",
         "Organism Name",
@@ -132,17 +117,14 @@ def export_reports(
 
     df = pd.DataFrame(results, columns=columns) if results else pd.DataFrame(columns=columns)
 
-    # 1. CSV Eksportu
     df.to_csv(csv_path, index=False, encoding="utf-8-sig")
-    print(f"📄 [REPORT CSV] Səliqəli CSV yaradıldı: {csv_path}")
+    print(f"[REPORT] CSV report created: {csv_path}")
 
-    # 2. Excel Eksportu
     try:
         df.to_excel(excel_path, index=False, engine="openpyxl")
-        print(f"📊 [REPORT EXCEL] Səliqəli Excel yaradıldı: {excel_path}")
+        print(f"[REPORT] Excel report created: {excel_path}")
     except Exception as e:
-        print(f"⚠️ Excel eksportu zamanı openpyxl xətası (CSV yenə də hazırdır): {e}")
+        print(f"Warning: openpyxl error during Excel export: {e}")
         excel_path = ""
 
     return {"csv": csv_path, "excel": excel_path}
-

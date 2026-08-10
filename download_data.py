@@ -1,18 +1,14 @@
 """
-download_data.py
-================
-NCBI Entrez və RCSB PDB vasitəsilə təyin olunmuş Accession nömrələrinin FASTA
-ardıcıllıqlarını avtomatik endirib data/ qovluğuna yazan skript.
+Data Fetcher Script.
+Downloads FASTA sequences from NCBI Entrez and RCSB PDB databases.
 """
 
 import os
 import urllib.request
 from Bio import Entrez
 
-# Entrez e-poçt konfiqurasiyası
-Entrez.email = "nexagen.bioinfo@gmail.com"
+Entrez.email = "user@example.com"
 
-# Yüklənəcək accession nömrələri siyahısı
 ACCESSIONS = [
     {"id": "NC_012920", "type": "dna", "db": "nucleotide", "source": "ncbi"},
     {"id": "AC_000021", "type": "dna", "db": "nucleotide", "source": "ncbi"},
@@ -28,7 +24,7 @@ def download_fasta(acc_info: dict) -> bool:
     source = acc_info["source"]
     output_path = os.path.join(DATA_DIR, f"{acc_id}.fasta")
 
-    print(f"⌛ '{acc_id}' ({acc_info['type'].upper()}) endirilir...")
+    print(f"Downloading '{acc_id}' ({acc_info['type'].upper()})...")
 
     try:
         fasta_data = ""
@@ -45,26 +41,26 @@ def download_fasta(acc_info: dict) -> bool:
         if fasta_data and fasta_data.strip().startswith(">"):
             with open(output_path, "w", encoding="utf-8") as f:
                 f.write(fasta_data)
-            print(f"✅ Müvəffəqiyyətlə yazıldı: {output_path} ({len(fasta_data)} bayt)")
+            print(f"Successfully saved: {output_path} ({len(fasta_data)} bytes)")
             return True
         else:
-            print(f"❌ Xəta: '{acc_id}' üçün keçərli FASTA cavabı alınmadı.")
+            print(f"Error: Invalid FASTA response received for '{acc_id}'.")
             return False
     except Exception as e:
-        print(f"❌ '{acc_id}' endirilərkən xəta baş verdi: {e}")
+        print(f"Error downloading '{acc_id}': {e}")
         return False
 
 
 def main():
     os.makedirs(DATA_DIR, exist_ok=True)
-    print("--- Accession FASTA Endirmə Prosesi Başladı ---\n")
-    
+    print("--- Accession FASTA Download Started ---\n")
+
     success_count = 0
     for item in ACCESSIONS:
         if download_fasta(item):
             success_count += 1
-            
-    print(f"\n✨ Tamamlandı: {len(ACCESSIONS)}-dən {success_count} FASTA faylı data/ qovluğuna saxlanıldı.")
+
+    print(f"\nDownload completed: {success_count}/{len(ACCESSIONS)} files saved to data/")
 
 
 if __name__ == "__main__":
