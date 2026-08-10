@@ -105,16 +105,4 @@ def run_blast(
     return xml_filepath
 
 
-if __name__ == "__main__":
-    print("--- blast_engine.py Test Rejimi ---")
-    from sequence_io import parse_fasta
-    
-    # Qısa test ardıcıllığı
-    test_fasta = ">test_query\nATGACAGACCAACAGAAAGCTCTGGTCGACCAGTGGAAGAAAGTCGAGGCCGACGTCGCAGGC"
-    rec = parse_fasta(test_fasta)
-    
-    try:
-        xml_path = run_blast(rec, force_reblast=False)
-        print("Test Keş Faylı:", xml_path)
-    except Exception as err:
-        print("Test Xətası:", err)
+

@@ -138,12 +138,4 @@ def fetch_ncbi_metadata(accession_id: str, email: str = "nexagen.bioinfo@gmail.c
     }
 
 
-if __name__ == "__main__":
-    # Sadə test funksionallığı
-    print("--- sequence_io.py Test Rejimi ---")
-    test_fasta_dna = ">test_seq1\nATGCGATCGATCGATCGATCGATCGATCGATCGATCG"
-    record = parse_fasta(test_fasta_dna)
-    print("FASTA Oxundu:", record.id, record.seq)
-    
-    seq_info = detect_sequence_type(record)
-    print("Ardıcıllıq Analizi:", seq_info)
+

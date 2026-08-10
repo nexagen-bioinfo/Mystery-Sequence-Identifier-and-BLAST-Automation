@@ -60,7 +60,7 @@ def parse_blast_xml(
                     organism_name = "Naməlum Orqanizm"
                     definition = full_title
                     
-                    # Başlıqdan Orqanizm adını süzmək simulyasiyası (məsələn [Homo sapiens])
+                    # Başlıqdan Orqanizm adını süzmək (məsələn [Homo sapiens])
                     if "[" in full_title and "]" in full_title:
                         try:
                             organism_name = full_title.split("[")[-1].split("]")[0]
@@ -146,17 +146,3 @@ def export_reports(
 
     return {"csv": csv_path, "excel": excel_path}
 
-
-if __name__ == "__main__":
-    print("--- report_writer.py Test Rejimi ---")
-    import glob
-    xml_files = glob.glob("cache/*.xml")
-    if xml_files:
-        test_xml = xml_files[0]
-        print(f"XML Oxunur: {test_xml}")
-        top_hits = parse_blast_xml(test_xml, fetch_organism=False)
-        print("Top Hits:", top_hits)
-        report_files = export_reports(top_hits, base_name="test_report")
-        print("Hesabatlar:", report_files)
-    else:
-        print("Test üçün keşkədə XML faylı tapılmadı.")

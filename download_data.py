@@ -1,6 +1,6 @@
 """
-download_test_sequences.py
-==========================
+download_data.py
+================
 NCBI Entrez və RCSB PDB vasitəsilə təyin olunmuş Accession nömrələrinin FASTA
 ardıcıllıqlarını avtomatik endirib data/ qovluğuna yazan skript.
 """
