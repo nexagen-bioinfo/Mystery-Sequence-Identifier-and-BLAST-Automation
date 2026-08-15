@@ -79,6 +79,37 @@ def detect_sequence_type(seq_record: SeqRecord) -> Dict[str, Union[str, int]]:
     }
 
 
+def extract_organism_from_title(title: str) -> str:
+    """
+    Extracts organism name from a sequence title or NCBI definition line.
+    
+    :param title: Definition line or sequence title
+    :return: Extracted organism name or 'Unknown Organism'
+    """
+    if not title:
+        return "Unknown Organism"
+
+    # Strip leading GI / accession identifier prefix (e.g. "gi|887494115|gb|KT232088.1| ...")
+    if "|" in title and len(title.split("|")) > 2:
+        title = title.split("|")[-1].strip()
+
+    if "[" in title and "]" in title:
+        parts = title.split("[")
+        for part in reversed(parts):
+            if "]" in part:
+                cand = part.split("]")[0].strip()
+                if cand:
+                    return cand
+
+    for keyword in [" segment ", " genes for ", " gene for ", " genes ", " gene ", " complete cds ", " partial cds ", " mRNA", " genomic ", " chromosome ", " viral cRNA"]:
+        if keyword in title:
+            cand = title.split(keyword)[0].strip()
+            if cand:
+                return cand
+
+    return "Unknown Organism"
+
+
 def fetch_ncbi_metadata(accession_id: str, email: str = "user@example.com", db: Optional[str] = None) -> Dict[str, str]:
     """
     Fetches organism name and definition for a given accession ID using NCBI Entrez.
@@ -93,18 +124,38 @@ def fetch_ncbi_metadata(accession_id: str, email: str = "user@example.com", db: 
 
     for target_db in databases_to_try:
         try:
+            handle = Entrez.efetch(db=target_db, id=accession_id, rettype="gb", retmode="text")
+            seq_rec = SeqIO.read(handle, "gb")
+            handle.close()
+
+            organism = seq_rec.annotations.get("organism", "Unknown Organism")
+            definition = seq_rec.description if seq_rec.description else "No description available"
+
+            if organism != "Unknown Organism":
+                return {
+                    "accession_id": accession_id,
+                    "organism": organism,
+                    "definition": definition,
+                    "database_used": target_db
+                }
+        except Exception:
+            pass
+
+        try:
             handle = Entrez.esummary(db=target_db, id=accession_id, retmode="xml")
             records = Entrez.read(handle)
             handle.close()
 
             if records:
                 doc_sum = records[0]
+                title = doc_sum.get("Title", doc_sum.get("Caption", "No description available"))
                 organism = doc_sum.get("Organism", "Unknown Organism")
-                definition = doc_sum.get("Title", doc_sum.get("Caption", "No description available"))
+                if organism == "Unknown Organism" and title:
+                    organism = extract_organism_from_title(title)
                 return {
                     "accession_id": accession_id,
                     "organism": organism,
-                    "definition": definition,
+                    "definition": title,
                     "database_used": target_db
                 }
         except Exception:
@@ -116,3 +167,4 @@ def fetch_ncbi_metadata(accession_id: str, email: str = "user@example.com", db: 
         "definition": "Metadata unavailable",
         "database_used": "none"
     }
+

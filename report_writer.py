@@ -7,7 +7,7 @@ import os
 from typing import List, Dict, Any, Optional
 import pandas as pd
 from Bio.Blast import NCBIXML
-from sequence_io import fetch_ncbi_metadata
+from sequence_io import fetch_ncbi_metadata, extract_organism_from_title
 
 
 def parse_blast_xml(
@@ -47,14 +47,8 @@ def parse_blast_xml(
                 identity_pct = (hsp.identities / align_length) * 100.0 if align_length > 0 else 0.0
 
                 if e_value <= max_evalue and identity_pct >= min_identity:
-                    organism_name = "Unknown Organism"
+                    organism_name = extract_organism_from_title(full_title)
                     definition = full_title
-
-                    if "[" in full_title and "]" in full_title:
-                        try:
-                            organism_name = full_title.split("[")[-1].split("]")[0]
-                        except Exception:
-                            pass
 
                     if fetch_organism and organism_name == "Unknown Organism" and accession_id:
                         meta = fetch_ncbi_metadata(accession_id)
