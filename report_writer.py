@@ -6,6 +6,7 @@ Parses BLAST XML results, applies statistical filtering, and exports CSV/Excel r
 import os
 from typing import List, Dict, Any, Optional
 import pandas as pd
+# pyrefly: ignore [missing-import]
 from Bio.Blast import NCBIXML
 from sequence_io import fetch_ncbi_metadata, extract_organism_from_title
 

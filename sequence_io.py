@@ -6,7 +6,9 @@ Handles FASTA parsing, sequence type detection, and NCBI Entrez metadata retriev
 import os
 import io
 from typing import Dict, Union, Optional
+# pyrefly: ignore [missing-import]
 from Bio import SeqIO, Entrez
+# pyrefly: ignore [missing-import]
 from Bio.SeqRecord import SeqRecord
 
 
