@@ -7,3 +7,5 @@ cache/
 *.xml
 *.csv
 *.xlsx
+.obsidian/
+.DS_Store
