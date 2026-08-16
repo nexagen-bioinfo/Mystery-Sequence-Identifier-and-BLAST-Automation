@@ -6,6 +6,7 @@ Welcome to the Persistent LLM Knowledge Base. This index is dynamically maintain
 
 ## 📚 Synthesis & Overviews
 - [[Pipeline-Architecture]] — End-to-end dataflow, component breakdown, caching strategy, and sequence identification workflow.
+- [[Benchmark-Test-Sequences]] — Overview of validation dataset suite (`NC_012920`, `AC_000021`, `PZ716984`, `9GE4`), biological significance, and expected BLAST behaviors.
 
 ---
 

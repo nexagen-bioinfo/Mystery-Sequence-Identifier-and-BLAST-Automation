@@ -4,6 +4,14 @@ Append-only record of all ingestions, syntheses, queries, and linting operations
 
 ---
 
+## [2026-08-17] synthesis | Benchmark Test Sequences & Validation Suite
+- **Source**: `data/` benchmark files -> `[[codebase-blast-pipeline]]`
+- **Pages Created**: `[[Benchmark-Test-Sequences]]`
+- **Pages Updated**: `[[wiki/index.md]]`
+- **Summary**: Synthesized metadata, biological origin, and alignment validation behavior for the four test sequences (`NC_012920`, `AC_000021`, `PZ716984`, `9GE4`).
+
+---
+
 ## [2026-08-17] ingest | Mystery Sequence Identifier & BLAST Automation Codebase
 - **Source**: Workspace Codebase (`main.py`, `sequence_io.py`, `blast_engine.py`, `report_writer.py`, `download_data.py`) -> `[[codebase-blast-pipeline]]`
 - **Pages Created**:
