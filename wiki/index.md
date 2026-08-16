@@ -5,6 +5,7 @@ Welcome to the Persistent LLM Knowledge Base. This index is dynamically maintain
 ---
 
 ## 📚 Synthesis & Overviews
+- [[Obsidian-LLM-Wiki-Guide]] — Comprehensive architectural guide explaining how Obsidian integrates with the LLM Wiki pattern.
 - [[Pipeline-Architecture]] — End-to-end dataflow, component breakdown, caching strategy, and sequence identification workflow.
 - [[Benchmark-Test-Sequences]] — Overview of validation dataset suite (`NC_012920`, `AC_000021`, `PZ716984`, `9GE4`), biological significance, and expected BLAST behaviors.
 - [[Remote-vs-Local-BLAST]] — Comparative evaluation of remote `Bio.Blast.NCBIWWW` API vs. local standalone `BLAST+` CLI installation.
@@ -19,7 +20,12 @@ Welcome to the Persistent LLM Knowledge Base. This index is dynamically maintain
 
 ---
 
-## 🏷️ Entities & Tools
+## 🏷️ Entities & Code Modules
+- [[module-sequence-io]] — Documentation for [`sequence_io.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/sequence_io.py) (FASTA parsing, type detection, Entrez metadata).
+- [[module-blast-engine]] — Documentation for [`blast_engine.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/blast_engine.py) (Remote NCBI query execution, retry loop, XML caching).
+- [[module-report-writer]] — Documentation for [`report_writer.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/report_writer.py) (XML parser, statistical filtering, CSV/Excel export).
+- [[module-main-cli]] — Documentation for [`main.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/main.py) (CLI options, orchestrator lifecycle).
+- [[module-download-data]] — Documentation for [`download_data.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/download_data.py) (NCBI & RCSB benchmark data puller).
 - [[Biopython]] — Python bioinformatics tool suite (`SeqIO`, `Entrez`, `NCBIWWW`, `NCBIXML`).
 - [[NCBI-BLAST]] — Remote sequence search tool, `blastn`/`blastp` algorithms, and `nt`/`nr` databases.
 - [[NCBI-Entrez]] — NCBI E-utilities web service API (`efetch`, `esummary`) for sequence downloads and taxonomic metadata.
