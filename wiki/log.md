@@ -4,6 +4,16 @@ Append-only record of all ingestions, syntheses, queries, and linting operations
 
 ---
 
+## [2026-08-17] lint | Graph Health Audit & Gap Remediation
+- **Audit Findings**: 0 broken wikilinks, 0 isolated orphan nodes. All concept and entity pages exhibit $\ge 9$ inbound connections.
+- **Remediation & Expansion**:
+  - Created `[[Karlin-Altschul-Statistics]]` to cover alignment probability theory, Gumbel distribution, and Bit score math.
+  - Created `[[Remote-vs-Local-BLAST]]` to evaluate latency, throughput, and local `BLAST+` vs. `Bio.Blast.NCBIWWW`.
+- **Pages Updated**: `[[wiki/index.md]]`, `[[BLAST-Alignment-Filtering]]`
+- **Health Status**: 100% interconnected graph, fully valid frontmatter.
+
+---
+
 ## [2026-08-17] synthesis | Benchmark Test Sequences & Validation Suite
 - **Source**: `data/` benchmark files -> `[[codebase-blast-pipeline]]`
 - **Pages Created**: `[[Benchmark-Test-Sequences]]`
