@@ -33,13 +33,17 @@ aliases:
    - A normalized measure of alignment quality independent of database size. Higher bit scores represent better alignments.
 
 4. **Hit Deduping & Ranking**:
-   - Hits in [`report_writer.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/report_writer.py) are sorted primarily by **E-value ascending** and secondarily by **Bit Score descending**.
+   - Hits in [`report_writer.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/report_writer.py) are sorted primarily by **E-value ascending** and secondarily by **Bit Score descending**.
    - Multiple High-Scoring Segment Pairs (HSPs) belonging to the same Accession ID are deduplicated to retain only the top alignment hit per sequence record.
 
 ## Taxonomy Resolution Fallback
-If the alignment title does not yield an organism name (e.g. returns `"Unknown Organism"`), the pipeline automatically triggers [[NCBI-Entrez]] metadata resolution using `fetch_ncbi_metadata()` to query GenBank / Entrez Summary endpoints.
+If the alignment title does not yield an organism name (e.g. returns `"Unknown Organism"`), the pipeline automatically triggers [[NCBI-Entrez]] metadata resolution using `fetch_ncbi_metadata()` to query GenBank / Entrez Summary endpoints (see [[NCBI-Taxonomy-Resolution]]).
 
 ## Cross-References
 - [[NCBI-BLAST]]
 - [[NCBI-Entrez]]
+- [[NCBI-Taxonomy-Resolution]]
+- [[Karlin-Altschul-Statistics]]
+- [[Substitution-Matrices-PAM-BLOSUM]]
 - [[Pipeline-Architecture]]
+- [[module-report-writer]]

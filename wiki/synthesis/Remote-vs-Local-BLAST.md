@@ -34,7 +34,7 @@ This synthesis compares the remote API approach currently implemented in the pip
 ---
 
 ## Architectural Recommendations
-1. **Low-Volume / Interactive Exploration**: The current `Bio.Blast.NCBIWWW` design in [`blast_engine.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/blast_engine.py) is ideal for ad-hoc sequence identification without heavy storage overhead.
+1. **Low-Volume / Interactive Exploration**: The current `Bio.Blast.NCBIWWW` design in [`blast_engine.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/blast_engine.py) is ideal for ad-hoc sequence identification without heavy storage overhead.
 2. **High-Throughput / Batch Processing**: For analyzing hundreds or thousands of mystery FASTA files, extending the pipeline to support a `--local` switch backed by local BLAST+ binaries is recommended.
 
 ---

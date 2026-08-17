@@ -42,11 +42,11 @@ flowchart TD
 
 | Module | Core Responsibility | Key Technologies |
 | :--- | :--- | :--- |
-| [`sequence_io.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/sequence_io.py) | [[FASTA-Format]] ingestion, [[Sequence-Type-Inference]], [[NCBI-Entrez]] metadata retrieval | `Bio.SeqIO`, `Bio.Entrez` |
-| [`blast_engine.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/blast_engine.py) | Remote query dispatch, network retry logic, XML caching | `Bio.Blast.NCBIWWW` |
-| [`report_writer.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/report_writer.py) | XML parsing, [[BLAST-Alignment-Filtering]], CSV/Excel export | `Bio.Blast.NCBIXML`, `pandas`, `openpyxl` |
-| [`main.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/main.py) | CLI argument orchestration and stdout reporting | `argparse` |
-| [`download_data.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/download_data.py) | Test dataset retrieval from NCBI & RCSB PDB | `urllib`, `Bio.Entrez` |
+| [`sequence_io.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/sequence_io.py) | [[FASTA-Format]] ingestion, [[Sequence-Type-Inference]], [[NCBI-Entrez]] metadata retrieval | `Bio.SeqIO`, `Bio.Entrez` |
+| [`blast_engine.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/blast_engine.py) | Remote query dispatch, network retry logic, XML caching | `Bio.Blast.NCBIWWW` |
+| [`report_writer.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/report_writer.py) | XML parsing, [[BLAST-Alignment-Filtering]], CSV/Excel export | `Bio.Blast.NCBIXML`, `pandas`, `openpyxl` |
+| [`main.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/main.py) | CLI argument orchestration and stdout reporting | `argparse` |
+| [`download_data.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/download_data.py) | Test dataset retrieval from NCBI & RCSB PDB | `urllib`, `Bio.Entrez` |
 
 ---
 
@@ -62,7 +62,12 @@ Subsequent runs on the same sequence bypass remote execution unless `--force-reb
 - [[codebase-blast-pipeline]]
 - [[NCBI-BLAST]]
 - [[NCBI-Entrez]]
+- [[NCBI-Taxonomy-Resolution]]
 - [[Biopython]]
 - [[Sequence-Type-Inference]]
 - [[BLAST-Alignment-Filtering]]
+- [[Substitution-Matrices-PAM-BLOSUM]]
+- [[Karlin-Altschul-Statistics]]
+- [[Remote-vs-Local-BLAST]]
+- [[Local-BLAST-Installation-and-Indexing]]
 - [[FASTA-Format]]

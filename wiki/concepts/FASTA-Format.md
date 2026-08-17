@@ -26,7 +26,7 @@ aliases:
 - Followed by lines of sequence data.
 
 ## Pipeline Handling in `sequence_io.py`
-The parser in [`sequence_io.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/sequence_io.py) (`parse_fasta`):
+The parser in [`sequence_io.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/sequence_io.py) (`parse_fasta`):
 1. Detects whether the input is a valid filesystem path or a raw FASTA text string.
 2. Uses `Bio.SeqIO.parse()` to instantiate a `Bio.SeqRecord.SeqRecord`.
 3. Sanitizes headers and extracts sequence length.
@@ -35,3 +35,4 @@ The parser in [`sequence_io.py`](file:///Users/macbookairm2/Documents/GitHub/Mys
 - [[Sequence-Type-Inference]]
 - [[Biopython]]
 - [[Pipeline-Architecture]]
+- [[module-sequence-io]]

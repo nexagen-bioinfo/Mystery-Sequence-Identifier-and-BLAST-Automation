@@ -28,10 +28,15 @@ The **Basic Local Alignment Search Tool (BLAST)** is an algorithm and web/CLI su
 - **`nr` (Non-Redundant Protein Database)**: Non-redundant protein database containing entries from GenBank translations, PDB, SwissProt, PIR, and PRF.
 
 ## API Integration in Pipeline
-In this codebase, BLAST queries are dispatched via `Bio.Blast.NCBIWWW.qblast` in [`blast_engine.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/blast_engine.py). Results are streamed as raw XML format and locally cached in `cache/` as `blast_<sequence_id>.xml`.
+In this codebase, BLAST queries are dispatched via `Bio.Blast.NCBIWWW.qblast` in [`blast_engine.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/blast_engine.py). Results are streamed as raw XML format and locally cached in `cache/` as `blast_<sequence_id>.xml`.
 
 ## Cross-References
 - [[Biopython]]
 - [[BLAST-Alignment-Filtering]]
+- [[Karlin-Altschul-Statistics]]
+- [[Substitution-Matrices-PAM-BLOSUM]]
+- [[Remote-vs-Local-BLAST]]
+- [[Local-BLAST-Installation-and-Indexing]]
 - [[Sequence-Type-Inference]]
 - [[Pipeline-Architecture]]
+- [[module-blast-engine]]
