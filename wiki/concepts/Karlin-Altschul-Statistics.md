@@ -60,7 +60,7 @@ $$E = m \cdot n \cdot 2^{-S'}$$
 ---
 
 ## Application in the Pipeline
-In [`report_writer.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/report_writer.py) and [[BLAST-Alignment-Filtering]]:
+In [`report_writer.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/report_writer.py) and [[BLAST-Alignment-Filtering]]:
 - Hits are filtered using the user-defined $E$-value threshold (`max_evalue = 1e-5`).
 - Ties in $E$-value are resolved using normalized `Bit Score` descending.
 
@@ -68,6 +68,8 @@ In [`report_writer.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequ
 
 ## Cross-References
 - [[BLAST-Alignment-Filtering]]
+- [[Substitution-Matrices-PAM-BLOSUM]]
 - [[NCBI-BLAST]]
 - [[Pipeline-Architecture]]
 - [[Remote-vs-Local-BLAST]]
+- [[Local-BLAST-Installation-and-Indexing]]

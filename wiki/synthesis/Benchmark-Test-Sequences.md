@@ -16,7 +16,7 @@ aliases:
 
 # Benchmark Test Sequences & Validation Suite
 
-The pipeline repository provides four standard benchmark sequences in `data/` (retrieved via [`download_data.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/download_data.py)) to validate [[Sequence-Type-Inference]], remote [[NCBI-BLAST]] execution, and [[BLAST-Alignment-Filtering]].
+The pipeline repository provides four standard benchmark sequences in `data/` (retrieved via [`download_data.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/download_data.py)) to validate [[Sequence-Type-Inference]], remote [[NCBI-BLAST]] execution, and [[BLAST-Alignment-Filtering]].
 
 ---
 

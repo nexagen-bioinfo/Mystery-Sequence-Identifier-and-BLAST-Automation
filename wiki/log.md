@@ -4,13 +4,25 @@ Append-only record of all ingestions, syntheses, queries, and linting operations
 
 ---
 
+## [2026-08-18] lint & compound | Full Graph Health Audit, Scoring Theory, & Local Execution Synthesis
+- **Audit Findings**: Graph link resolution verified at 100%. Remediated legacy workspace paths across all entity, concept, synthesis, and source pages.
+- **Pages Created**:
+  - `[[Substitution-Matrices-PAM-BLOSUM]]` (Concept: Log-odds scoring, PAM vs BLOSUM, affine gap penalties).
+  - `[[NCBI-Taxonomy-Resolution]]` (Concept: TaxID mapping, title regex heuristics, Entrez fallback chain, lineage traversal).
+  - `[[Local-BLAST-Installation-and-Indexing]]` (Synthesis: `makeblastdb`, high-throughput CLI batch options, Python subprocess bridge).
+- **Pages Updated**:
+  - `[[wiki/index.md]]`, `[[Pipeline-Architecture]]`, `[[Remote-vs-Local-BLAST]]`, `[[BLAST-Alignment-Filtering]]`, `[[Karlin-Altschul-Statistics]]`, `[[NCBI-Entrez]]`, `[[NCBI-BLAST]]`, `[[Biopython]]`, `[[FASTA-Format]]`, `[[codebase-blast-pipeline]]`.
+- **Health Status**: 100% interconnected graph, 0 broken wikilinks, 0 orphan nodes.
+
+---
+
 ## [2026-08-17] documentation | Complete File Documentation & Obsidian Wiki Guide
 - **Files Documented**:
-  - `[[module-sequence-io]]` ([`sequence_io.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/sequence_io.py))
-  - `[[module-blast-engine]]` ([`blast_engine.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/blast_engine.py))
-  - `[[module-report-writer]]` ([`report_writer.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/report_writer.py))
-  - `[[module-main-cli]]` ([`main.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/main.py))
-  - `[[module-download-data]]` ([`download_data.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/download_data.py))
+  - `[[module-sequence-io]]` ([`sequence_io.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/sequence_io.py))
+  - `[[module-blast-engine]]` ([`blast_engine.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/blast_engine.py))
+  - `[[module-report-writer]]` ([`report_writer.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/report_writer.py))
+  - `[[module-main-cli]]` ([`main.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/main.py))
+  - `[[module-download-data]]` ([`download_data.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/download_data.py))
 - **Synthesis Guide Created**:
   - `[[Obsidian-LLM-Wiki-Guide]]` (Deep-dive on Obsidian graph view, bidirectional links, and LLM maintenance protocols)
 - **Pages Updated**: `[[wiki/index.md]]`

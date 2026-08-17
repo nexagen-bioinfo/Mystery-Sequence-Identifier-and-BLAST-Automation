@@ -20,20 +20,24 @@ aliases:
 ## Biopython Modules Used in the Pipeline
 - **`Bio.SeqIO`**:
   - Handles parsing and writing sequence file formats (primarily [[FASTA-Format]] and GenBank format).
-  - Used in [`sequence_io.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/sequence_io.py) and [`download_data.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/download_data.py).
+  - Used in [`sequence_io.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/sequence_io.py) and [`download_data.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/download_data.py).
 - **`Bio.SeqRecord`**:
   - Encapsulates sequence data (`.seq`), identifier (`.id`), and annotations.
 - **`Bio.Blast.NCBIWWW`**:
   - Provides `qblast` function for submitting asynchronous BLAST queries to NCBI's remote servers.
-  - Used in [`blast_engine.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/blast_engine.py).
+  - Used in [`blast_engine.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/blast_engine.py).
 - **`Bio.Blast.NCBIXML`**:
   - Parses BLAST XML output records into alignment objects containing High-Scoring Segment Pairs (HSPs).
-  - Used in [`report_writer.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/report_writer.py).
+  - Used in [`report_writer.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/report_writer.py).
 - **`Bio.Entrez`**:
   - Communicates with NCBI E-Utilities (`efetch`, `esummary`).
-  - Used in [`sequence_io.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/sequence_io.py) and [`download_data.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/download_data.py).
+  - Used in [`sequence_io.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/sequence_io.py) and [`download_data.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/download_data.py).
 
 ## Cross-References
 - [[NCBI-BLAST]]
 - [[NCBI-Entrez]]
+- [[NCBI-Taxonomy-Resolution]]
 - [[Pipeline-Architecture]]
+- [[module-sequence-io]]
+- [[module-blast-engine]]
+- [[module-report-writer]]
