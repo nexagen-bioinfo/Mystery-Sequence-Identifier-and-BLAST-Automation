@@ -4,6 +4,30 @@ Append-only record of all ingestions, syntheses, queries, and linting operations
 
 ---
 
+## [2026-08-18] ingest & compound | Foundational Alignment Papers & Local BLAST Engine Extension
+- **Sources**:
+  - `raw/altschul1990_blast.md` -> `[[altschul-1990-blast]]`
+  - `raw/buchfink2021_diamond.md` -> `[[buchfink-2021-diamond]]`
+  - `raw/steinegger2017_mmseqs2.md` -> `[[steinegger-2017-mmseqs2]]`
+- **Pages Created**:
+  - `[[altschul-1990-blast]]` (Source Summary: Landmark BLAST MSP & Karlin-Altschul statistics paper)
+  - `[[buchfink-2021-diamond]]` (Source Summary: Nature Methods DIAMOND aligner, double indexing, spaced seeds)
+  - `[[steinegger-2017-mmseqs2]]` (Source Summary: Nature Biotechnology MMseqs2 3-stage cascaded search)
+  - `[[Seed-and-Extend-Heuristic]]` (Concept: $w$-mer seeding, $X$-drop thresholding, banded dynamic programming)
+  - `[[Double-Indexing-and-Reduced-Alphabets]]` (Concept: Bilateral memory sorting, 10/11-letter amino acid contraction)
+  - `[[DIAMOND]]` (Entity: High-throughput protein aligner CLI & architecture)
+  - `[[MMseqs2]]` (Entity: Massive sequence search and clustering suite)
+  - `[[Heuristic-Alignment-Paradigms-BLAST-DIAMOND-MMseqs2]]` (Synthesis: Multi-paradigm comparative benchmark)
+- **Pages Updated**:
+  - `[[wiki/index.md]]`, `[[wiki/entities/module-blast-engine.md]]`, `[[wiki/entities/module-main-cli.md]]`, `[[Pipeline-Architecture]]`
+- **Codebase Extensions**:
+  - Enhanced [`blast_engine.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/blast_engine.py) with dual local/remote execution (`run_local_blast`, `check_local_blast_available`, `-num_threads`, `-outfmt 5`).
+  - Enhanced [`main.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/main.py) with `--mode`, `--db`, `--threads`, and `--output-dir` arguments.
+  - Created [`test_pipeline.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/test_pipeline.py) automated test harness.
+- **Summary**: Ingested landmark alignment papers, synthesized comparative heuristics across BLAST/DIAMOND/MMseqs2, integrated local standalone BLAST+ CLI execution into the Python codebase, and verified complete graph link integrity.
+
+---
+
 ## [2026-08-18] lint & compound | Full Graph Health Audit, Scoring Theory, & Local Execution Synthesis
 - **Audit Findings**: Graph link resolution verified at 100%. Remediated legacy workspace paths across all entity, concept, synthesis, and source pages.
 - **Pages Created**:

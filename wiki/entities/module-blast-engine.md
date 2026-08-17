@@ -6,9 +6,10 @@ tags:
   - blast/engine
   - caching/xml
 created: 2026-08-17
-updated: 2026-08-17
+updated: 2026-08-18
 sources:
   - "[[codebase-blast-pipeline]]"
+  - "[[altschul-1990-blast]]"
 aliases:
   - blast_engine
   - BLAST Engine Module
@@ -16,28 +17,28 @@ aliases:
 
 # Module: `blast_engine.py`
 
-The **Remote BLAST Engine** manages network communication with the remote NCBI BLAST QBLAST web service, manages local caching of raw XML results, and handles network resilience.
+The **BLAST Engine** manages local standalone [[NCBI-BLAST]] CLI execution (`blastn`/`blastp` via subprocess) and remote NCBI QBLAST web service communication, caching raw XML results and handling automatic fallback.
 
 ---
 
 ## Functions & API Reference
 
-### `run_blast(seq_record, cache_dir="cache", force_reblast=False, max_retries=3, retry_delay=10, hitlist_size=10, expect=1e-5) -> str`
+### 1. `run_blast(seq_record, mode="auto", db=None, num_threads=4, cache_dir="cache", force_reblast=False, max_retries=3, retry_delay=10, hitlist_size=10, expect=1e-5) -> str`
+- **Purpose**: Main orchestrator for sequence alignment execution.
+- **Modes**:
+  - `mode="auto"`: Checks if local binary and custom database exist; if so executes locally, otherwise queries remote NCBI API.
+  - `mode="local"`: Forces local BLAST+ CLI execution via `subprocess`.
+  - `mode="remote"`: Forces remote NCBI QBLAST execution via `Bio.Blast.NCBIWWW.qblast`.
+- **Caching**: Generates deterministic XML files (`cache/blast_<safe_id>.xml`) to skip redundant queries.
 
-- **Purpose**: Executes a remote BLAST query or retrieves a previously cached XML file.
-- **Workflow**:
-  1. **Deterministic Cache Check**:
-     - Computes safe filename: `cache/blast_<sanitized_id>.xml`.
-     - If file exists and `force_reblast=False`, loads directly from disk.
-  2. **Parameter Selection**:
-     - Calls `detect_sequence_type()` from [[module-sequence-io]] to dynamically set `program` (`blastn`/`blastp`) and `database` (`nt`/`nr`).
-  3. **Resilient Network Execution**:
-     - Invokes `Bio.Blast.NCBIWWW.qblast()`.
-     - Wraps execution in a retry loop (default `3` attempts with `10s` backoff between attempts).
-     - Validates that the returned payload contains the closing `<BlastOutput>` tag to prevent corrupted partial downloads.
-  4. **Persistence**:
-     - Writes the verified XML string to the local `cache/` directory.
-- **Returns**: Absolute filesystem path to the XML cache file.
+### 2. `run_local_blast(seq_record, db, output_xml_path, program="blastn", num_threads=4, hitlist_size=10, expect=1e-5) -> str`
+- **Purpose**: Spawns local `blastn`/`blastp` process with `-outfmt 5` (XML output), multi-threading (`-num_threads`), and E-value thresholding.
+
+### 3. `run_remote_blast(seq_record, output_xml_path, program, database, max_retries=3, retry_delay=10, hitlist_size=10, expect=1e-5) -> str`
+- **Purpose**: Submits queries to NCBI web servers with retry backoff loop and XML integrity validation (`<BlastOutput>`).
+
+### 4. `check_local_blast_available(program: str) -> bool`
+- **Purpose**: Utilizes `shutil.which` to detect if BLAST+ binaries reside in system `$PATH`.
 
 ---
 
@@ -45,4 +46,6 @@ The **Remote BLAST Engine** manages network communication with the remote NCBI B
 - [[codebase-blast-pipeline]]
 - [[NCBI-BLAST]]
 - [[Remote-vs-Local-BLAST]]
+- [[Local-BLAST-Installation-and-Indexing]]
 - [[Pipeline-Architecture]]
+- [[Seed-and-Extend-Heuristic]]
