@@ -4,6 +4,18 @@ Append-only record of all ingestions, syntheses, queries, and linting operations
 
 ---
 
+## [2026-08-18] documentation | Full Workspace File Documentation & Configuration Entities
+- **Files Documented**:
+  - `[[module-test-pipeline]]` ([`test_pipeline.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/test_pipeline.py))
+  - `[[config-requirements]]` ([`requirements.txt`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/requirements.txt))
+  - `[[config-pyright]]` ([`pyrightconfig.json`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/pyrightconfig.json))
+  - `[[project-readme]]` ([`README.md`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/README.md))
+  - `[[schema-agents-protocol]]` ([`AGENTS.md`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/AGENTS.md))
+- **Pages Updated**: `[[wiki/index.md]]`
+- **Summary**: Generated dedicated entity documentation for 100% of workspace files, ensuring every script, test harness, configuration file, and protocol schema is fully interlinked in the knowledge graph.
+
+---
+
 ## [2026-08-18] ingest & compound | Foundational Alignment Papers & Local BLAST Engine Extension
 - **Sources**:
   - `raw/altschul1990_blast.md` -> `[[altschul-1990-blast]]`

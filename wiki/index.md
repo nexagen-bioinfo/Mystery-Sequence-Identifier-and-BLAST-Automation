@@ -32,6 +32,11 @@ Welcome to the Persistent LLM Knowledge Base. This index is dynamically maintain
 - [[module-report-writer]] — Documentation for [`report_writer.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/report_writer.py) (XML parser, statistical filtering, CSV/Excel export).
 - [[module-main-cli]] — Documentation for [`main.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/main.py) (CLI options, orchestrator lifecycle).
 - [[module-download-data]] — Documentation for [`download_data.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/download_data.py) (NCBI & RCSB benchmark data puller).
+- [[module-test-pipeline]] — Documentation for [`test_pipeline.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/test_pipeline.py) (Automated test suite for inference, filtering, and exports).
+- [[config-requirements]] — Documentation for [`requirements.txt`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/requirements.txt) (Biopython, pandas, openpyxl dependencies).
+- [[config-pyright]] — Documentation for [`pyrightconfig.json`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/pyrightconfig.json) (Python static typing and LSP config).
+- [[project-readme]] — Documentation for [`README.md`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/README.md) (Project overview, quickstart, and CLI instructions).
+- [[schema-agents-protocol]] — Documentation for [`AGENTS.md`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/AGENTS.md) (Operational schema and wiki maintenance protocol).
 - [[NCBI-BLAST]] — Remote and local sequence search tool, `blastn`/`blastp` algorithms, and `nt`/`nr` databases.
 - [[DIAMOND]] — High-throughput protein sequence aligner utilizing double indexing and SIMD acceleration.
 - [[MMseqs2]] — Ultra-fast cascaded search suite for protein/nucleotide searching and clustering.
