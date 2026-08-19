@@ -8,6 +8,7 @@ Welcome to the Persistent LLM Knowledge Base. This index is dynamically maintain
 - [[Obsidian-LLM-Wiki-Guide]] — Comprehensive architectural guide explaining how Obsidian integrates with the LLM Wiki pattern.
 - [[Pipeline-Architecture]] — End-to-end dataflow, component breakdown, caching strategy, and sequence identification workflow.
 - [[Heuristic-Alignment-Paradigms-BLAST-DIAMOND-MMseqs2]] — Comparative benchmark and algorithmic evolution across BLAST, DIAMOND, and MMseqs2.
+- [[Profile-Search-and-Remote-Homology]] — Deep dive on twilight zone sequence homology (<25% identity), PSSMs, Profile HMMs, and cascaded profile alignment.
 - [[Benchmark-Test-Sequences]] — Overview of validation dataset suite (`NC_012920`, `AC_000021`, `PZ716984`, `9GE4`), biological significance, and expected BLAST behaviors.
 - [[Remote-vs-Local-BLAST]] — Comparative evaluation of remote `Bio.Blast.NCBIWWW` API vs. local standalone `BLAST+` CLI installation.
 - [[Local-BLAST-Installation-and-Indexing]] — Concrete guide for standalone NCBI BLAST+ deployment, `makeblastdb` custom database formatting, and high-throughput multi-threaded search.
@@ -16,6 +17,8 @@ Welcome to the Persistent LLM Knowledge Base. This index is dynamically maintain
 
 ## 💡 Concepts & Methods
 - [[Seed-and-Extend-Heuristic]] — Foundational algorithmic paradigm bypassing quadratic dynamic programming via $w$-mer seeding, $X$-drop filtering, and banded DP.
+- [[Two-Hit-Seed-Heuristic]] — 2-hit seed requirement on identical diagonals within 40 residues, cutting unproductive extensions by ~90%.
+- [[Position-Specific-Iterated-BLAST]] — Iterative profile scoring, multiple sequence alignment weighting, pseudocount regularization, and PSSM derivation.
 - [[Double-Indexing-and-Reduced-Alphabets]] — Bilateral cache-efficient seed sorting and 10/11-letter amino acid alphabet contraction in DIAMOND & MMseqs2.
 - [[Sequence-Type-Inference]] — Nucleotide vs. protein composition heuristics and BLAST program/database selection.
 - [[BLAST-Alignment-Filtering]] — Statistical cutoffs (E-value, Identity %, Bit Score), ranking, and taxonomy resolution fallback.
@@ -38,6 +41,7 @@ Welcome to the Persistent LLM Knowledge Base. This index is dynamically maintain
 - [[project-readme]] — Documentation for [`README.md`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/README.md) (Project overview, quickstart, and CLI instructions).
 - [[schema-agents-protocol]] — Documentation for [`AGENTS.md`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/AGENTS.md) (Operational schema and wiki maintenance protocol).
 - [[NCBI-BLAST]] — Remote and local sequence search tool, `blastn`/`blastp` algorithms, and `nt`/`nr` databases.
+- [[PSI-BLAST]] — Standalone CLI utility for iterative profile searches and PSSM generation (`psiblast`).
 - [[DIAMOND]] — High-throughput protein sequence aligner utilizing double indexing and SIMD acceleration.
 - [[MMseqs2]] — Ultra-fast cascaded search suite for protein/nucleotide searching and clustering.
 - [[Biopython]] — Python bioinformatics tool suite (`SeqIO`, `Entrez`, `NCBIWWW`, `NCBIXML`).
@@ -47,6 +51,7 @@ Welcome to the Persistent LLM Knowledge Base. This index is dynamically maintain
 
 ## 📄 Ingested Sources
 - [[altschul-1990-blast]] — Landmark paper introducing the Basic Local Alignment Search Tool (BLAST) and Karlin-Altschul MSP theory.
+- [[altschul-1997-gapped-blast]] — Landmark paper introducing Gapped BLAST (2-hit seed heuristic, banded dynamic programming) and PSI-BLAST PSSMs.
 - [[buchfink-2021-diamond]] — Nature Methods publication on the DIAMOND aligner, double indexing, and tree-of-life scale alignment.
 - [[steinegger-2017-mmseqs2]] — Nature Biotechnology publication on MMseqs2 3-stage cascaded search and clustering.
 - [[codebase-blast-pipeline]] — Comprehensive architectural analysis of the Mystery Sequence Identifier & BLAST Automation codebase.

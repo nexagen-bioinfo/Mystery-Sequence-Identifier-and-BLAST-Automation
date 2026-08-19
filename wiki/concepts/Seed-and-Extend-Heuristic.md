@@ -6,9 +6,10 @@ tags:
   - bioinformatics/alignment
   - blast/heuristic
 created: 2026-08-18
-updated: 2026-08-18
+updated: 2026-08-19
 sources:
   - "[[altschul-1990-blast]]"
+  - "[[altschul-1997-gapped-blast]]"
   - "[[buchfink-2021-diamond]]"
   - "[[steinegger-2017-mmseqs2]]"
 aliases:
@@ -37,6 +38,7 @@ flowchart LR
 - **Word Length ($w$)**: Fixed short word length (e.g. $w=3$ for protein BLAST, $w=11$ for nucleotide BLAST, $k=7$ for MMseqs2).
 - **Neighborhood Expansion**: For protein queries, generate all potential $w$-mers whose score with the query word using [[Substitution-Matrices-PAM-BLOSUM]] (e.g. BLOSUM62) meets a threshold $T$:
   $$\text{Score}(W_{\text{query}}, W_{\text{candidate}}) \ge T$$
+- **1-Hit vs. 2-Hit Seeding**: While original [[altschul-1990-blast|BLAST 1990]] triggered extensions on any single hit, modern engines utilize the [[Two-Hit-Seed-Heuristic]] ([[altschul-1997-gapped-blast|Altschul et al. 1997]]), requiring two non-overlapping hits on the same diagonal within 40 residues, cutting extension runtime by ~90%.
 - **Hit Detection**: Query words or pre-computed hash lookup tables identify exact occurrences of neighborhood words in the database in linear $O(N)$ time.
 
 ### 2. Ungapped Extension ($X$-Drop)
@@ -55,11 +57,14 @@ flowchart LR
 ---
 
 ## 🔬 Related Pages
+- [[Two-Hit-Seed-Heuristic]]
+- [[Position-Specific-Iterated-BLAST]]
 - [[Karlin-Altschul-Statistics]]
 - [[Substitution-Matrices-PAM-BLOSUM]]
 - [[Double-Indexing-and-Reduced-Alphabets]]
 - [[BLAST-Alignment-Filtering]]
 - [[NCBI-BLAST]]
+- [[PSI-BLAST]]
 - [[DIAMOND]]
 - [[MMseqs2]]
 - [[Heuristic-Alignment-Paradigms-BLAST-DIAMOND-MMseqs2]]

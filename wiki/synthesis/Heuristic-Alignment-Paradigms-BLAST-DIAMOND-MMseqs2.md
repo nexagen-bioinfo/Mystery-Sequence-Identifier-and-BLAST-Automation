@@ -7,9 +7,10 @@ tags:
   - blast/heuristic
   - high-throughput/benchmarks
 created: 2026-08-18
-updated: 2026-08-18
+updated: 2026-08-19
 sources:
   - "[[altschul-1990-blast]]"
+  - "[[altschul-1997-gapped-blast]]"
   - "[[buchfink-2021-diamond]]"
   - "[[steinegger-2017-mmseqs2]]"
   - "[[codebase-blast-pipeline]]"
@@ -95,12 +96,17 @@ graph TD
 
 ## 🔗 Related Pages
 - [[altschul-1990-blast]]
+- [[altschul-1997-gapped-blast]]
 - [[buchfink-2021-diamond]]
 - [[steinegger-2017-mmseqs2]]
+- [[Two-Hit-Seed-Heuristic]]
+- [[Position-Specific-Iterated-BLAST]]
+- [[PSI-BLAST]]
 - [[Seed-and-Extend-Heuristic]]
 - [[Double-Indexing-and-Reduced-Alphabets]]
 - [[Karlin-Altschul-Statistics]]
 - [[Substitution-Matrices-PAM-BLOSUM]]
+- [[Profile-Search-and-Remote-Homology]]
 - [[Remote-vs-Local-BLAST]]
 - [[Local-BLAST-Installation-and-Indexing]]
 - [[Pipeline-Architecture]]

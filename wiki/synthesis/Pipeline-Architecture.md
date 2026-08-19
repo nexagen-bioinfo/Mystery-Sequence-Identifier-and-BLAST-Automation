@@ -5,10 +5,11 @@ tags:
   - architecture/pipeline
   - bioinformatics/workflow
 created: 2026-08-17
-updated: 2026-08-18
+updated: 2026-08-19
 sources:
   - "[[codebase-blast-pipeline]]"
   - "[[altschul-1990-blast]]"
+  - "[[altschul-1997-gapped-blast]]"
 aliases:
   - System Architecture
   - BLAST Pipeline Workflow
@@ -66,6 +67,9 @@ Subsequent runs on the same sequence bypass query execution unless `--force-rebl
 ## Cross-References
 - [[codebase-blast-pipeline]]
 - [[NCBI-BLAST]]
+- [[PSI-BLAST]]
+- [[Two-Hit-Seed-Heuristic]]
+- [[Position-Specific-Iterated-BLAST]]
 - [[NCBI-Entrez]]
 - [[NCBI-Taxonomy-Resolution]]
 - [[Biopython]]
@@ -78,4 +82,5 @@ Subsequent runs on the same sequence bypass query execution unless `--force-rebl
 - [[Remote-vs-Local-BLAST]]
 - [[Local-BLAST-Installation-and-Indexing]]
 - [[Heuristic-Alignment-Paradigms-BLAST-DIAMOND-MMseqs2]]
+- [[Profile-Search-and-Remote-Homology]]
 - [[FASTA-Format]]

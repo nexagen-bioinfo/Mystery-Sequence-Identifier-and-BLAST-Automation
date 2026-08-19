@@ -6,9 +6,11 @@ tags:
   - statistics/alignment
   - theory/mathematics
 created: 2026-08-17
-updated: 2026-08-17
+updated: 2026-08-19
 sources:
   - "[[codebase-blast-pipeline]]"
+  - "[[altschul-1990-blast]]"
+  - "[[altschul-1997-gapped-blast]]"
 aliases:
   - Karlin-Altschul Theory
   - BLAST Statistical Theory
@@ -59,6 +61,16 @@ $$E = m \cdot n \cdot 2^{-S'}$$
 
 ---
 
+## 4. Gapped & Profile Parameter Estimation
+
+While ungapped parameters $(\lambda, K)$ can be computed analytically from substitution matrix marginal frequencies, gapped alignment parameters $(\lambda_g, K_g)$ lack an exact closed-form solution:
+- **Empirical Simulation**: [[altschul-1997-gapped-blast|Altschul et al. (1997)]] established precomputed empirical parameters $(\lambda_g, K_g)$ derived from millions of simulated alignments over random sequences.
+- **Profile / PSSM Scaling**: In [[Position-Specific-Iterated-BLAST|PSI-BLAST]], each column of the PSSM is scaled such that the overall matrix satisfies the characteristic equation:
+  $$\sum_{j=1}^{20} q_j e^{\lambda S_{i, j}} = 1$$
+  maintaining rigorous $E$-value comparability across iterations.
+
+---
+
 ## Application in the Pipeline
 In [`report_writer.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/report_writer.py) and [[BLAST-Alignment-Filtering]]:
 - Hits are filtered using the user-defined $E$-value threshold (`max_evalue = 1e-5`).
@@ -67,9 +79,14 @@ In [`report_writer.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-
 ---
 
 ## Cross-References
+- [[altschul-1990-blast]]
+- [[altschul-1997-gapped-blast]]
+- [[Two-Hit-Seed-Heuristic]]
+- [[Position-Specific-Iterated-BLAST]]
 - [[BLAST-Alignment-Filtering]]
 - [[Substitution-Matrices-PAM-BLOSUM]]
 - [[NCBI-BLAST]]
+- [[PSI-BLAST]]
 - [[Pipeline-Architecture]]
 - [[Remote-vs-Local-BLAST]]
 - [[Local-BLAST-Installation-and-Indexing]]
