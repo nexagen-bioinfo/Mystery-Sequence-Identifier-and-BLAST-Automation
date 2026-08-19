@@ -6,9 +6,37 @@ Parses BLAST XML results, applies statistical filtering, and exports CSV/Excel r
 import os
 from typing import List, Dict, Any, Optional
 import pandas as pd
-# pyrefly: ignore [missing-import]
 from Bio.Blast import NCBIXML
-from sequence_io import fetch_ncbi_metadata, extract_organism_from_title
+
+
+def extract_organism_from_title(title: str) -> str:
+    """
+    Extracts organism name from a sequence title or NCBI definition line.
+    
+    :param title: Definition line or sequence title
+    :return: Extracted organism name or 'Unknown Organism'
+    """
+    if not title:
+        return "Unknown Organism"
+
+    if "|" in title and len(title.split("|")) > 2:
+        title = title.split("|")[-1].strip()
+
+    if "[" in title and "]" in title:
+        parts = title.split("[")
+        for part in reversed(parts):
+            if "]" in part:
+                cand = part.split("]")[0].strip()
+                if cand:
+                    return cand
+
+    for keyword in [" complete genome", " complete sequence", " segment ", " genes for ", " gene for ", " genes ", " gene ", " complete cds ", " partial cds ", " mRNA", " genomic ", " chromosome ", " viral cRNA"]:
+        if keyword in title:
+            cand = title.split(keyword)[0].strip()
+            if cand:
+                return cand
+
+    return "Unknown Organism"
 
 
 def parse_blast_xml(
@@ -52,10 +80,14 @@ def parse_blast_xml(
                     definition = full_title
 
                     if fetch_organism and organism_name == "Unknown Organism" and accession_id:
-                        meta = fetch_ncbi_metadata(accession_id)
-                        organism_name = meta.get("organism", organism_name)
-                        if meta.get("definition") and meta["definition"] != "No description available":
-                            definition = meta["definition"]
+                        try:
+                            from sequence_io import fetch_ncbi_metadata
+                            meta = fetch_ncbi_metadata(accession_id)
+                            organism_name = meta.get("organism", organism_name)
+                            if meta.get("definition") and meta["definition"] != "No description available":
+                                definition = meta["definition"]
+                        except ImportError:
+                            pass
 
                     results.append({
                         "Accession ID": accession_id,

@@ -1,78 +1,67 @@
-# Mystery Sequence Identifier & BLAST Automation Pipeline
+# Mystery Sequence Identifier & BLAST Automation Pipeline — Participant 3 Scope (`suleiman` branch)
 
-A modular bioinformatics pipeline for identifying unknown biological DNA, RNA, or Protein sequences (in FASTA format), integrating with NCBI (National Center for Biotechnology Information) databases, and exporting structured analysis reports (CSV and Excel format).
-
----
-
-## Architecture and Work Division
-
-The project is structured into three main modules:
-
-| Participant | Responsibility | Output Module |
-| :--- | :--- | :--- |
-| **Participant 1** | FASTA file parsing, sequence type detection (DNA, RNA, Protein), BLAST tool selection (`blastn` vs `blastp`), and NCBI Entrez metadata retrieval. | [`sequence_io.py`](sequence_io.py) |
-| **Participant 2** | Remote query execution via `Bio.Blast.NCBIWWW` against `nt` or `nr` databases, network timeout/exception handling, and raw XML caching. | [`blast_engine.py`](blast_engine.py) |
-| **Participant 3** | XML parsing using `Bio.Blast.NCBIXML`, statistical filtering (E-value / Identity %), and CSV/Excel report generation. | [`report_writer.py`](report_writer.py) |
+This branch contains the isolated scope for **Participant 3 (Suleiman)**: **XML Parser & Report Generator Module** (`report_writer.py`).
 
 ---
 
-## Installation
+## Participant 3 Scope & Deliverables
 
-### 1. Clone the repository:
+| Module | Description | Test Suite | Demo Script |
+| :--- | :--- | :--- | :--- |
+| [`report_writer.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/report_writer.py) | BioPython `Bio.Blast.NCBIXML` XML parsing, statistical filtering (E-value $\le 10^{-5}$, Identity % $\ge 90\%$), Top 5 alignment selection, and CSV/Excel report generation. | [`test_report_writer.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/test_report_writer.py) | [`demo_report_writer.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/demo_report_writer.py) |
+
+---
+
+## Installation & Setup
+
+1. **Activate Virtual Environment**:
+   ```bash
+   source venv/bin/activate
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+---
+
+## Running Participant 3 Module & Tests
+
+### Run Unit Tests
 ```bash
-git clone https://github.com/nexagen-bioinfo/Mystery-Sequence-Identifier-and-BLAST-Automation.git
-cd Mystery-Sequence-Identifier-and-BLAST-Automation
+python test_report_writer.py
 ```
 
-### 2. Create and activate a virtual environment:
+### Run Interactive Demo
 ```bash
-python3 -m venv venv
-source venv/bin/activate  # macOS / Linux
-# venv\Scripts\activate   # Windows
-```
-
-### 3. Install dependencies:
-```bash
-pip install -r requirements.txt
+python demo_report_writer.py
 ```
 
 ---
 
-## Usage
+## Module API Documentation
 
-Run the pipeline from the command line using `main.py`:
+```python
+from report_writer import parse_blast_xml, export_reports
 
-```bash
-python main.py --input data/PZ716984.fasta
+# Parse raw BLAST XML file and apply statistical filtering
+results = parse_blast_xml(
+    xml_filepath="cache/blast_PZ716984_1.xml",
+    max_evalue=1e-5,
+    min_identity=90.0,
+    top_n=5
+)
+
+# Export structured CSV and Excel (.xlsx) reports
+report_paths = export_reports(
+    results,
+    output_dir="reports",
+    base_name="final_report"
+)
 ```
-
-### CLI Arguments
-
-```bash
-# Specify custom E-value, Identity %, and Top Hıts threshold:
-python main.py --input data/PZ716984.fasta --evalue 1e-10 --identity 95.0 --top 10
-
-# Force remote BLAST query ignoring cached XML:
-python main.py --input data/PZ716984.fasta --force-reblast
-```
-
-#### Argument Details:
-* `--input` / `-i`: **(Required)** Path to input FASTA sequence file.
-* `--evalue` / `-e`: Maximum E-value cutoff *(Default: 1e-5)*.
-* `--identity` / `-id`: Minimum Identity percentage cutoff *(Default: 90.0)*.
-* `--top` / `-t`: Number of top alignment matches to report *(Default: 5)*.
-* `--force-reblast` / `-f`: Bypass local cache and force new NCBI query.
 
 ---
 
-## Project Structure and Output Files
-
-* **`cache/`**: Contains raw XML response files returned from NCBI queries to prevent redundant network requests.
-* **`reports/`**: Output directory for generated CSV and Excel reports.
-* **`data/`**: Sample FASTA sequences for testing and validation.
-
----
-
-## License and Author Information
-
+## License & Organization
 NEXAGEN Scientific Initiative (2026)
