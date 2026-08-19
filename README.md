@@ -1,78 +1,67 @@
-# Mystery Sequence Identifier & BLAST Automation Pipeline
+# Mystery Sequence Identifier — Module 1: Sequence Manager & Entrez Interface
 
-A modular bioinformatics pipeline for identifying unknown biological DNA, RNA, or Protein sequences (in FASTA format), integrating with NCBI (National Center for Biotechnology Information) databases, and exporting structured analysis reports (CSV and Excel format).
+**İştirakçı 1 (Adiba)** — NEXAGEN Scientific Initiative (2026)
 
----
-
-## Architecture and Work Division
-
-The project is structured into three main modules:
-
-| Participant | Responsibility | Output Module |
-| :--- | :--- | :--- |
-| **Participant 1** | FASTA file parsing, sequence type detection (DNA, RNA, Protein), BLAST tool selection (`blastn` vs `blastp`), and NCBI Entrez metadata retrieval. | [`sequence_io.py`](sequence_io.py) |
-| **Participant 2** | Remote query execution via `Bio.Blast.NCBIWWW` against `nt` or `nr` databases, network timeout/exception handling, and raw XML caching. | [`blast_engine.py`](blast_engine.py) |
-| **Participant 3** | XML parsing using `Bio.Blast.NCBIXML`, statistical filtering (E-value / Identity %), and CSV/Excel report generation. | [`report_writer.py`](report_writer.py) |
+Bu modul naməlum bioloji nümunələrin (`FASTA` formatında DNT, RNT və ya Zülal ardıcıllıqları) daxil edilməsini, növünün avtomatik aşkarlanmasını, uyğun BLAST proqramının seçilməsini və NCBI Entrez vasitəsilə metadata (orqanizm adı, gen təsviri) çəkilməsini təmin edir.
 
 ---
 
-## Installation
+## 🛠 Modulun Əsas Məsuliyyətləri və Funksiyaları
 
-### 1. Clone the repository:
-```bash
-git clone https://github.com/nexagen-bioinfo/Mystery-Sequence-Identifier-and-BLAST-Automation.git
-cd Mystery-Sequence-Identifier-and-BLAST-Automation
-```
+| Funksiya | Təsvir | Giriş Parametri | Çıxış |
+| :--- | :--- | :--- | :--- |
+| `parse_fasta(input_source)` | `Bio.SeqIO` ilə `.fasta` faylını və ya xammal FASTA mətnini təhlükəsiz oxuyur. | Fayl yolu və ya FASTA mətni | `Bio.SeqRecord.SeqRecord` |
+| `detect_sequence_type(seq_record)` | Ardıcıllığı analiz edərək `DNA`, `RNA` və ya `PROTEIN` növünü təyin edir, `blastn`/`nt` və ya `blastp`/`nr` seçir. | `SeqRecord` obyekti | Metadata lüğəti (`dict`) |
+| `extract_organism_from_title(title)` | NCBI başlıqlarından və gen təsvirlərindən orqanizmin elmi adını çıxarır. | Başlıq mətni (`str`) | Orqanizm adı (`str`) |
+| `fetch_ncbi_metadata(accession_id)` | `Bio.Entrez` (`efetch` və `esummary`) vasitəsilə Accession ID üçün tam taksonomik məlumatları çəkir. | Accession ID (`str`) | Metadata lüğəti (`dict`) |
 
-### 2. Create and activate a virtual environment:
-```bash
-python3 -m venv venv
-source venv/bin/activate  # macOS / Linux
-# venv\Scripts\activate   # Windows
-```
+---
 
-### 3. Install dependencies:
+## 🚀 Quraşdırma və İstifadə
+
+### 1. Asılılıqların quraşdırılması:
 ```bash
 pip install -r requirements.txt
 ```
 
----
+### 2. Python kodunda istifadə nümunəsi:
+```python
+from sequence_io import parse_fasta, detect_sequence_type, fetch_ncbi_metadata
 
-## Usage
+# 1. FASTA faylını oxumaq
+record = parse_fasta("data/PZ716984.fasta")
+print(f"ID: {record.id}, Uzunluq: {len(record.seq)}")
 
-Run the pipeline from the command line using `main.py`:
+# 2. Ardıcıllığın növünü və BLAST proqramını təyin etmək
+seq_info = detect_sequence_type(record)
+print("Ardıcıllıq Növü:", seq_info["sequence_type"])       # Məs: DNA
+print("Seçilmiş BLAST:", seq_info["blast_program"])        # Məs: blastn
+print("Hədəf Baza:", seq_info["database"])                 # Məs: nt
 
-```bash
-python main.py --input data/PZ716984.fasta
+# 3. Accession ID üçün NCBI Entrez məlumatını gətirmək
+meta = fetch_ncbi_metadata("NC_012920")
+print("Orqanizm:", meta["organism"])                       # Məs: Homo sapiens
+print("Təsvir:", meta["definition"])
 ```
 
-### CLI Arguments
+---
+
+## 🧪 Unit Testlərin İcrası
+
+Modul 1-in bütün funksiyalarını fərdi şəkildə test etmək üçün:
 
 ```bash
-# Specify custom E-value, Identity %, and Top Hıts threshold:
-python main.py --input data/PZ716984.fasta --evalue 1e-10 --identity 95.0 --top 10
-
-# Force remote BLAST query ignoring cached XML:
-python main.py --input data/PZ716984.fasta --force-reblast
+python -m unittest test_sequence_io.py
 ```
 
-#### Argument Details:
-* `--input` / `-i`: **(Required)** Path to input FASTA sequence file.
-* `--evalue` / `-e`: Maximum E-value cutoff *(Default: 1e-5)*.
-* `--identity` / `-id`: Minimum Identity percentage cutoff *(Default: 90.0)*.
-* `--top` / `-t`: Number of top alignment matches to report *(Default: 5)*.
-* `--force-reblast` / `-f`: Bypass local cache and force new NCBI query.
-
 ---
 
-## Project Structure and Output Files
+## 📁 Qovluq Strukturu
 
-* **`cache/`**: Contains raw XML response files returned from NCBI queries to prevent redundant network requests.
-* **`reports/`**: Output directory for generated CSV and Excel reports.
-* **`data/`**: Sample FASTA sequences for testing and validation.
-
----
-
-## License and Author Information
-
-NEXAGEN Scientific Initiative (2026)
+```
+├── sequence_io.py         # Modul 1: Əsas çıxış kodu (SeqIO və Entrez)
+├── test_sequence_io.py    # Modul 1 üçün xüsusi Unit Testlər
+├── requirements.txt       # Layihə asılılıqları (BioPython)
+├── README.md              # İştirakçı 1 sənədləşməsi
+└── data/                  # Test üçün nümunə FASTA ardıcıllıqları
+```
