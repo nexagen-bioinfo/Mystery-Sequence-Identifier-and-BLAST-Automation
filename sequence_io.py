@@ -147,7 +147,7 @@ def fetch_ncbi_metadata(accession_id: str, email: str = "user@example.com", db: 
     :param db: Target database ('nucleotide' or 'protein')
     :return: Dictionary containing accession_id, organism, and definition
     """
-    Entrez.email = email
+    Entrez.email = adibamammadzade@gmail.com
     databases_to_try = [db] if db else ["nucleotide", "protein"]
 
     for target_db in databases_to_try:
