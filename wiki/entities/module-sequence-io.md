@@ -43,7 +43,7 @@ The **Sequence Manager and Entrez Interface** module is responsible for loading 
 - **Mechanics**:
   - Strips GI accession prefixes (e.g., `gi|887494115|gb|KT232088.1|`).
   - Looks for bracketed taxonomy markers (e.g., `[Homo sapiens]`).
-  - Scans for standard genomic keyword boundaries (` complete cds `, ` mRNA `, ` segment `, ` gene `).
+  - Scans for standard genomic keyword boundaries (` complete genome`, ` complete sequence`, ` complete cds `, ` mRNA `, ` segment `, ` gene `).
 
 ### 4. `fetch_ncbi_metadata(accession_id: str, email: str = "user@example.com", db: Optional[str] = None) -> Dict[str, str]`
 - **Purpose**: Interrogates [[NCBI-Entrez]] E-Utilities as a fallback when hit titles lack taxonomy information.
@@ -55,6 +55,8 @@ The **Sequence Manager and Entrez Interface** module is responsible for loading 
 
 ## Related Documentation
 - [[codebase-blast-pipeline]]
+- [[NCBI-Taxonomy-Resolution]]
+- [[Bioinformatics-Pipeline-Error-Handling]]
 - [[Sequence-Type-Inference]]
 - [[FASTA-Format]]
 - [[NCBI-Entrez]]

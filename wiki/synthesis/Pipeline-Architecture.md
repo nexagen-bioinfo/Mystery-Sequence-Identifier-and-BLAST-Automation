@@ -59,6 +59,9 @@ Subsequent runs on the same sequence bypass remote execution unless `--force-reb
 ---
 
 ## Cross-References
+- [[Automated-Bioinformatics-Knowledge-Compounding]]
+- [[Bioinformatics-Pipeline-Error-Handling]]
+- [[Compounding-Knowledge-Graph]]
 - [[codebase-blast-pipeline]]
 - [[NCBI-BLAST]]
 - [[NCBI-Entrez]]
