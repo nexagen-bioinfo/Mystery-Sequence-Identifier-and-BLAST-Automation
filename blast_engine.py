@@ -8,7 +8,43 @@ import time
 from typing import Optional, Dict, Any
 from Bio.Blast import NCBIWWW
 from Bio.SeqRecord import SeqRecord
-from sequence_io import detect_sequence_type
+
+
+def detect_sequence_type(seq_record: SeqRecord) -> Dict[str, Any]:
+    """
+    Analyzes sequence composition to determine whether it is DNA, RNA, or Protein,
+    and selects the corresponding BLAST program and database.
+
+    :param seq_record: SeqRecord object
+    :return: Dictionary containing sequence metadata and BLAST parameters
+    """
+    sequence_str = str(seq_record.seq).upper().strip()
+    if not sequence_str:
+        raise ValueError("Sequence is empty.")
+
+    dna_rna_chars = set("ATCGUN")
+    valid_nuc_count = sum(1 for char in sequence_str if char in dna_rna_chars)
+    nuc_ratio = valid_nuc_count / len(sequence_str)
+
+    if nuc_ratio >= 0.90:
+        if "U" in sequence_str and "T" not in sequence_str:
+            seq_type = "RNA"
+        else:
+            seq_type = "DNA"
+        blast_program = "blastn"
+        database = "nt"
+    else:
+        seq_type = "PROTEIN"
+        blast_program = "blastp"
+        database = "nr"
+
+    return {
+        "sequence_id": seq_record.id,
+        "sequence_type": seq_type,
+        "blast_program": blast_program,
+        "database": database,
+        "length": len(sequence_str)
+    }
 
 
 def run_blast(
