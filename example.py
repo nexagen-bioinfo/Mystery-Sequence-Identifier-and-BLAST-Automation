@@ -1,3 +1,10 @@
+import sys
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 # ==============================================================================
 # Mystery Sequence Identifier — İştirakçı 1 (Sequence Manager & Entrez Interface)
 # ==============================================================================
@@ -185,20 +192,20 @@ def fetch_ncbi_metadata(accession_id: str, email: str = "user@example.com", db: 
 # TESTLƏRİN İCRASI
 # ==============================================================================
 print("==========================================================================")
-print("  İştirakçı 1 (Adiba) — Test Nəticələri")
+print("  Participant 1 (Adiba) -- Test Results")
 print("==========================================================================")
 
-# 1. DNT testi
+# 1. DNA test
 dna_rec = SeqRecord(Seq("ATGCGATCGATCGATCGATCGATC"), id="test_dna")
-print("\n[1] DNT Testi:", detect_sequence_type(dna_rec))
+print("\n[1] DNA Test:", detect_sequence_type(dna_rec))
 
-# 2. Zülal testi
+# 2. Protein test
 prot_rec = SeqRecord(Seq("MKTLLLTLLLLLLLLWVEAKL"), id="test_prot")
-print("\n[2] Zülal Testi:", detect_sequence_type(prot_rec))
+print("\n[2] Protein Test:", detect_sequence_type(prot_rec))
 
-# 3. Entrez Metadata testi (NCBI serverinə sorğu göndərir)
-print("\n[3] NCBI Entrez sorğusu göndərilir...")
+# 3. Entrez Metadata test (sends query to NCBI)
+print("\n[3] Sending NCBI Entrez query...")
 meta = fetch_ncbi_metadata("NC_012920")
-print("Entrez Testi Nəticəsi:", meta)
+print("Entrez Result:", meta)
 
 print("\n==========================================================================")
