@@ -15,8 +15,8 @@ def run_blast(
     seq_record: SeqRecord,
     cache_dir: str = "cache",
     force_reblast: bool = False,
-    max_retries: int = 3,
-    retry_delay: int = 10,
+    max_retries: int = 5,
+    retry_delay: int = 30,
     hitlist_size: int = 10,
     expect: float = 1e-5
 ) -> str:
