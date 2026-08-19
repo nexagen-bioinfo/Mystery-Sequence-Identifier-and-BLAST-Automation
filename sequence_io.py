@@ -91,10 +91,18 @@ def extract_organism_from_title(title: str) -> str:
     if not title:
         return "Unknown Organism"
 
+    title = title.strip()
+
     # Strip leading GI / accession identifier prefix (e.g. "gi|887494115|gb|KT232088.1| ...")
     if "|" in title and len(title.split("|")) > 2:
         title = title.split("|")[-1].strip()
 
+    # Strip common prefixes
+    for prefix in ["PREDICTED: ", "RecName: Full=", "UNVERIFIED: "]:
+        if title.startswith(prefix):
+            title = title[len(prefix):].strip()
+
+    # 1. Check for bracketed organism name, e.g. [Homo sapiens]
     if "[" in title and "]" in title:
         parts = title.split("[")
         for part in reversed(parts):
@@ -103,13 +111,31 @@ def extract_organism_from_title(title: str) -> str:
                 if cand:
                     return cand
 
-    for keyword in [" segment ", " genes for ", " gene for ", " genes ", " gene ", " complete cds ", " partial cds ", " mRNA", " genomic ", " chromosome ", " viral cRNA"]:
-        if keyword in title:
-            cand = title.split(keyword)[0].strip()
-            if cand:
-                return cand
+    # 2. Check for earliest keyword match
+    earliest_idx = -1
+    for keyword in [
+        " segment", " genes for", " gene for", " genes", " gene",
+        " complete cds", " partial cds", " mrna", " genomic",
+        " chromosome", " viral crna", " mitochondrion", " chloroplast",
+        " hemoglobin", " subunit", " protein", " isolate", " strain"
+    ]:
+        idx = title.lower().find(keyword)
+        if idx != -1:
+            if earliest_idx == -1 or idx < earliest_idx:
+                earliest_idx = idx
 
-    return "Unknown Organism"
+    if earliest_idx > 0:
+        cand = title[:earliest_idx].strip().rstrip(",").strip()
+        if cand:
+            return cand
+
+    # 3. Fallback to first two words if title looks like 'Genus species ...'
+    words = title.split()
+    if len(words) >= 2 and words[0][0].isupper() and words[1].islower():
+        return f"{words[0]} {words[1]}"
+
+    return title if title else "Unknown Organism"
+
 
 
 def fetch_ncbi_metadata(accession_id: str, email: str = "user@example.com", db: Optional[str] = None) -> Dict[str, str]:
