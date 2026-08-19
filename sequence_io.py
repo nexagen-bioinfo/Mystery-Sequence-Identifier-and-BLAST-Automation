@@ -103,7 +103,7 @@ def extract_organism_from_title(title: str) -> str:
                 if cand:
                     return cand
 
-    for keyword in [" segment ", " genes for ", " gene for ", " genes ", " gene ", " complete cds ", " partial cds ", " mRNA", " genomic ", " chromosome ", " viral cRNA"]:
+    for keyword in [" complete genome", " complete sequence", " segment ", " genes for ", " gene for ", " genes ", " gene ", " complete cds ", " partial cds ", " mRNA", " genomic ", " chromosome ", " viral cRNA"]:
         if keyword in title:
             cand = title.split(keyword)[0].strip()
             if cand:

@@ -5,6 +5,7 @@ Welcome to the Persistent LLM Knowledge Base. This index is dynamically maintain
 ---
 
 ## 📚 Synthesis & Overviews
+- [[Automated-Bioinformatics-Knowledge-Compounding]] — Framework for transforming raw BLAST runs and taxonomic lookups into compounding knowledge graph nodes.
 - [[Obsidian-LLM-Wiki-Guide]] — Comprehensive architectural guide explaining how Obsidian integrates with the LLM Wiki pattern.
 - [[Pipeline-Architecture]] — End-to-end dataflow, component breakdown, caching strategy, and sequence identification workflow.
 - [[Benchmark-Test-Sequences]] — Overview of validation dataset suite (`NC_012920`, `AC_000021`, `PZ716984`, `9GE4`), biological significance, and expected BLAST behaviors.
@@ -14,6 +15,8 @@ Welcome to the Persistent LLM Knowledge Base. This index is dynamically maintain
 ---
 
 ## 💡 Concepts & Methods
+- [[Compounding-Knowledge-Graph]] — Theory of persistent, self-updating associative knowledge bases vs. ephemeral runtime RAG.
+- [[Bioinformatics-Pipeline-Error-Handling]] — Defensive boundaries for NCBI rate limits, transient network retries, XML parsing, and ambiguous IUPAC bases.
 - [[Sequence-Type-Inference]] — Nucleotide vs. protein composition heuristics and BLAST program/database selection.
 - [[BLAST-Alignment-Filtering]] — Statistical cutoffs (E-value, Identity %, Bit Score), ranking, and taxonomy resolution fallback.
 - [[Karlin-Altschul-Statistics]] — Mathematical theory of local sequence alignments, Gumbel distribution, E-values, bit score normalization ($\lambda$, $K$).
@@ -24,6 +27,8 @@ Welcome to the Persistent LLM Knowledge Base. This index is dynamically maintain
 ---
 
 ## 🏷️ Entities & Code Modules
+- [[Homo-sapiens]] — Model organism profile for *Homo sapiens* (TaxID 9606) and mitochondrial reference sequence `NC_012920`.
+- [[Obsidian]] — Local Markdown IDE and graph visualizer for knowledge exploration and Dataview frontmatter queries.
 - [[module-sequence-io]] — Documentation for [`sequence_io.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/sequence_io.py) (FASTA parsing, type detection, Entrez metadata).
 - [[module-blast-engine]] — Documentation for [`blast_engine.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/blast_engine.py) (Remote NCBI query execution, retry loop, XML caching).
 - [[module-report-writer]] — Documentation for [`report_writer.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/report_writer.py) (XML parser, statistical filtering, CSV/Excel export).
@@ -36,4 +41,5 @@ Welcome to the Persistent LLM Knowledge Base. This index is dynamically maintain
 ---
 
 ## 📄 Ingested Sources
+- [[llm-wiki-pattern]] — Ingested specification and architectural manifesto for LLM-maintained personal knowledge bases.
 - [[codebase-blast-pipeline]] — Comprehensive architectural analysis of the Mystery Sequence Identifier & BLAST Automation codebase.

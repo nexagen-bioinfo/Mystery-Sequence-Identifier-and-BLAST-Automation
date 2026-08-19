@@ -4,6 +4,20 @@ Append-only record of all ingestions, syntheses, queries, and linting operations
 
 ---
 
+## [2026-08-19] ingest, synthesis & lint | LLM Wiki Pattern Ingestion & Bioinformatics Compounding
+- **Source**: `raw/llm-wiki-pattern.md` -> `[[llm-wiki-pattern]]`
+- **Pages Created**:
+  - `[[llm-wiki-pattern]]` (Source: Foundational specification of the persistent compounding LLM Wiki pattern).
+  - `[[Compounding-Knowledge-Graph]]` (Concept: Architecture of compounding associative graphs vs. stateless RAG).
+  - `[[Obsidian]]` (Entity: Local markdown IDE, Dataview querying, local attachment workflows).
+  - `[[Bioinformatics-Pipeline-Error-Handling]]` (Concept: NCBI rate limits, transient HTTP retries, IUPAC degeneracy handling).
+  - `[[Automated-Bioinformatics-Knowledge-Compounding]]` (Synthesis: Unifying automated sequence analysis with compounding wiki entities).
+- **Pages Updated**:
+  - `[[index]]`, `[[Obsidian-LLM-Wiki-Guide]]`, `[[Pipeline-Architecture]]`.
+- **Lint Audit**: 100% link resolution, 0 broken wikilinks, 0 orphan nodes across all 28 wiki files.
+
+---
+
 ## [2026-08-18] lint & compound | Full Graph Health Audit, Scoring Theory, & Local Execution Synthesis
 - **Audit Findings**: Graph link resolution verified at 100%. Remediated legacy workspace paths across all entity, concept, synthesis, and source pages.
 - **Pages Created**:
@@ -11,7 +25,7 @@ Append-only record of all ingestions, syntheses, queries, and linting operations
   - `[[NCBI-Taxonomy-Resolution]]` (Concept: TaxID mapping, title regex heuristics, Entrez fallback chain, lineage traversal).
   - `[[Local-BLAST-Installation-and-Indexing]]` (Synthesis: `makeblastdb`, high-throughput CLI batch options, Python subprocess bridge).
 - **Pages Updated**:
-  - `[[wiki/index.md]]`, `[[Pipeline-Architecture]]`, `[[Remote-vs-Local-BLAST]]`, `[[BLAST-Alignment-Filtering]]`, `[[Karlin-Altschul-Statistics]]`, `[[NCBI-Entrez]]`, `[[NCBI-BLAST]]`, `[[Biopython]]`, `[[FASTA-Format]]`, `[[codebase-blast-pipeline]]`.
+  - `[[index]]`, `[[Pipeline-Architecture]]`, `[[Remote-vs-Local-BLAST]]`, `[[BLAST-Alignment-Filtering]]`, `[[Karlin-Altschul-Statistics]]`, `[[NCBI-Entrez]]`, `[[NCBI-BLAST]]`, `[[Biopython]]`, `[[FASTA-Format]]`, `[[codebase-blast-pipeline]]`.
 - **Health Status**: 100% interconnected graph, 0 broken wikilinks, 0 orphan nodes.
 
 ---
@@ -25,7 +39,7 @@ Append-only record of all ingestions, syntheses, queries, and linting operations
   - `[[module-download-data]]` ([`download_data.py`](file:///c:/Users/User/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/download_data.py))
 - **Synthesis Guide Created**:
   - `[[Obsidian-LLM-Wiki-Guide]]` (Deep-dive on Obsidian graph view, bidirectional links, and LLM maintenance protocols)
-- **Pages Updated**: `[[wiki/index.md]]`
+- **Pages Updated**: `[[index]]`
 
 ---
 
@@ -34,7 +48,7 @@ Append-only record of all ingestions, syntheses, queries, and linting operations
 - **Remediation & Expansion**:
   - Created `[[Karlin-Altschul-Statistics]]` to cover alignment probability theory, Gumbel distribution, and Bit score math.
   - Created `[[Remote-vs-Local-BLAST]]` to evaluate latency, throughput, and local `BLAST+` vs. `Bio.Blast.NCBIWWW`.
-- **Pages Updated**: `[[wiki/index.md]]`, `[[BLAST-Alignment-Filtering]]`
+- **Pages Updated**: `[[index]]`, `[[BLAST-Alignment-Filtering]]`
 - **Health Status**: 100% interconnected graph, fully valid frontmatter.
 
 ---
@@ -42,7 +56,7 @@ Append-only record of all ingestions, syntheses, queries, and linting operations
 ## [2026-08-17] synthesis | Benchmark Test Sequences & Validation Suite
 - **Source**: `data/` benchmark files -> `[[codebase-blast-pipeline]]`
 - **Pages Created**: `[[Benchmark-Test-Sequences]]`
-- **Pages Updated**: `[[wiki/index.md]]`
+- **Pages Updated**: `[[index]]`
 - **Summary**: Synthesized metadata, biological origin, and alignment validation behavior for the four test sequences (`NC_012920`, `AC_000021`, `PZ716984`, `9GE4`).
 
 ---
@@ -58,7 +72,7 @@ Append-only record of all ingestions, syntheses, queries, and linting operations
   - `[[BLAST-Alignment-Filtering]]` (Concept)
   - `[[FASTA-Format]]` (Concept)
   - `[[Pipeline-Architecture]]` (Synthesis)
-- **Pages Updated**: `[[wiki/index.md]]`
+- **Pages Updated**: `[[index]]`
 - **Summary**: Ingested the entire BLAST automation pipeline codebase, modeling its 3-layer architecture, sequence detection heuristic, BLAST caching/remote execution, statistical filtering, and Entrez metadata enrichment into interlinked wiki pages.
 
 ---

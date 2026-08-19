@@ -9,6 +9,7 @@ created: 2026-08-17
 updated: 2026-08-17
 sources:
   - "[[codebase-blast-pipeline]]"
+  - "[[llm-wiki-pattern]]"
 aliases:
   - Obsidian & LLM Wiki Guide
   - How Obsidian Works with LLM Wiki
@@ -16,7 +17,7 @@ aliases:
 
 # Obsidian & LLM Wiki: System Guide & Workflow Architecture
 
-> **Core Idea**: Traditional RAG systems query raw documents from scratch on every prompt without compounding knowledge. An **LLM Wiki** maintains an evolving, interlinked markdown knowledge base where the LLM does the bookkeeping, and you explore the graph in Obsidian.
+> **Core Idea**: Traditional RAG systems query raw documents from scratch on every prompt without compounding knowledge. An **LLM Wiki** maintains an evolving, interlinked markdown knowledge base where the LLM does the bookkeeping, and you explore the graph in [[Obsidian]].
 
 ---
 
@@ -52,16 +53,18 @@ aliases:
 In this paradigm:
 - **The Wiki** is the codebase.
 - **The LLM** is the software developer maintaining the codebase.
-- **Obsidian** is the IDE where you browse, search, and navigate the output.
+- **[[Obsidian]]** is the IDE where you browse, search, and navigate the output.
 
 ### Key Obsidian Features Used:
 1. **Interactive Graph View (`Cmd+G` / `Ctrl+G`)**:
    - Visualizes relationships between modules (`module-sequence-io`), concepts (`Sequence-Type-Inference`), algorithms (`Karlin-Altschul-Statistics`), and external entities (`NCBI-BLAST`).
    - High-density hubs naturally reveal core system components.
-2. **Bidirectional Wikilinks (`[[Page Name]]`)**:
-   - Enables instant backlink tracking. Opening any concept page shows all pipeline files and synthesis documents referencing it.
+2. **Bidirectional Wikilinks**:
+   - Every page uses wikilink syntax to create bidirectional links. Enables instant backlink tracking — opening any concept page shows all pipeline files and synthesis documents referencing it.
 3. **YAML Frontmatter & Dataview**:
    - Every file contains metadata (`type`, `tags`, `sources`, `created`, `updated`) allowing dynamic Dataview queries.
+4. **Local Attachments & Web Clipper**:
+   - Save clipped web assets and figures to `raw/assets/` via hotkey (`Ctrl+Shift+D`), preventing broken external URL links.
 
 ---
 
@@ -90,6 +93,10 @@ Maintains graph health:
 ---
 
 ## Cross-References
+- [[Compounding-Knowledge-Graph]]
+- [[llm-wiki-pattern]]
+- [[Obsidian]]
+- [[Automated-Bioinformatics-Knowledge-Compounding]]
 - [[Pipeline-Architecture]]
 - [[codebase-blast-pipeline]]
 - [[module-sequence-io]]
