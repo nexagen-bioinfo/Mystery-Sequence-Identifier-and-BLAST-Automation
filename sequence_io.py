@@ -24,7 +24,7 @@ def parse_fasta(input_source: str) -> SeqRecord:
 
     if os.path.exists(input_source):
         try:
-            with open(input_source, "r") as handle:
+            with open(input_source, "r", encoding="utf-8") as handle:
                 records = list(SeqIO.parse(handle, "fasta"))
             if not records:
                 raise ValueError(f"No FASTA sequence found in '{input_source}'.")
