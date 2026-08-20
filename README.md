@@ -1,18 +1,22 @@
-# Mystery Sequence Identifier & BLAST Automation Pipeline — Participant 2 Scope (`mehriban` branch)
+# Mystery Sequence Identifier & BLAST Automation Pipeline (`main` branch)
 
-This branch contains the isolated scope for **Participant 2 (Mehriban)**: **Remote BLAST Engine Module** (`blast_engine.py`).
+A modular bioinformatics pipeline for identifying unknown biological DNA, RNA, or Protein sequences (in FASTA format), integrating with NCBI (National Center for Biotechnology Information) databases, and exporting structured analysis reports (CSV and Excel format).
 
 ---
 
-## Participant 2 Scope & Deliverables
+## 🏗 Pipeline Architecture & Work Division (3 Participants)
 
-| Module | Description | Test Suite | Demo Script |
+The unified pipeline in the `main` branch integrates the core modules developed across the 3 participant branches:
+
+| Participant / Branch | Module Scope | Deliverable | Description |
 | :--- | :--- | :--- | :--- |
-| [`blast_engine.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/blast_engine.py) | BioPython `Bio.Blast.NCBIWWW.qblast()` query execution (`blastn` vs `blastp`), retry & timeout handling, and raw XML caching system (`cache/`). | [`test_blast_engine.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/test_blast_engine.py) | [`demo_blast.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/demo_blast.py) |
+| **Participant 1** (`adiba`) | Sequence Manager & Entrez Interface | [`sequence_io.py`](sequence_io.py) | FASTA parsing, sequence type inference (`blastn` vs `blastp`), and NCBI Entrez metadata retrieval. |
+| **Participant 2** (`mehriban`) | Remote BLAST Engine | [`blast_engine.py`](blast_engine.py) | `Bio.Blast.NCBIWWW` query execution (`nt` vs `nr`), retry/timeout handling, and raw XML caching system. |
+| **Participant 3** (`suleiman`) | XML Parser & Report Generator | [`report_writer.py`](report_writer.py) | `Bio.Blast.NCBIXML` parsing, statistical filtering ($E \le 10^{-5}$, Identity $\ge 90\%$), and CSV/Excel report generation. |
 
 ---
 
-## Installation & Setup
+## 🚀 Quick Start & Installation
 
 1. **Activate Virtual Environment**:
    ```bash
@@ -24,41 +28,55 @@ This branch contains the isolated scope for **Participant 2 (Mehriban)**: **Remo
    pip install -r requirements.txt
    ```
 
+3. **Run Unified Pipeline**:
+   ```bash
+   python main.py --input data/mystery_sequence.fasta
+   ```
+
 ---
 
-## Running Participant 2 Module & Tests
+## 💻 CLI Options (`main.py`)
 
-### Run Unit Tests
 ```bash
-python test_blast_engine.py
+# Custom E-value, Identity %, and Top Hits cutoff:
+python main.py --input data/PZ716984.fasta --evalue 1e-10 --identity 95.0 --top 10
+
+# Force remote BLAST query (ignore local XML cache):
+python main.py --input data/PZ716984.fasta --force-reblast
 ```
 
-### Run Interactive Demo
+### CLI Parameter Details:
+- `--input` / `-i`: **(Required)** Path to input FASTA sequence file.
+- `--evalue` / `-e`: Maximum E-value cutoff *(Default: 1e-5)*.
+- `--identity` / `-id`: Minimum Identity percentage cutoff *(Default: 90.0)*.
+- `--top` / `-t`: Number of top alignment matches to report *(Default: 5)*.
+- `--force-reblast` / `-f`: Bypass local cache and force new NCBI query.
+
+---
+
+## 🧪 Running Unit Tests
+
+Run the full unified pipeline test suite:
 ```bash
-python demo_blast.py
+python test_pipeline.py
 ```
 
 ---
 
-## Module API Documentation
+## 📁 Directory Structure
 
-```python
-from blast_engine import run_blast, detect_sequence_type
-
-# Detect sequence composition (DNA, RNA, or Protein)
-info = detect_sequence_type(seq_record)
-
-# Execute remote BLAST query and cache raw XML result
-xml_filepath = run_blast(
-    seq_record,
-    cache_dir="cache",
-    force_reblast=False,
-    max_retries=5,
-    retry_delay=30
-)
+```
+├── sequence_io.py       # Participant 1 Module (Sequence Input & Entrez)
+├── blast_engine.py      # Participant 2 Module (Remote NCBI BLAST Engine)
+├── report_writer.py     # Participant 3 Module (XML Parser & Report Generator)
+├── main.py              # Unified CLI Entry Point (Pipeline Orchestrator)
+├── test_pipeline.py     # Comprehensive Test Suite
+├── cache/               # Raw NCBI BLAST XML Cache Directory
+├── reports/             # Generated CSV and Excel Analysis Reports
+└── data/                # Benchmark Test FASTA Sequences
 ```
 
 ---
 
-## License & Organization
-NEXAGEN Scientific Initiative (2026)
+## 📜 License and Community
+NEXAGEN Scientific Initiative — Bioinformatics & AI Initiative (2026)
