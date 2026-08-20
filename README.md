@@ -1,78 +1,64 @@
-# Mystery Sequence Identifier & BLAST Automation Pipeline
+# Mystery Sequence Identifier & BLAST Automation Pipeline — Participant 2 Scope (`mehriban` branch)
 
-A modular bioinformatics pipeline for identifying unknown biological DNA, RNA, or Protein sequences (in FASTA format), integrating with NCBI (National Center for Biotechnology Information) databases, and exporting structured analysis reports (CSV and Excel format).
-
----
-
-## Architecture and Work Division
-
-The project is structured into three main modules:
-
-| Participant | Responsibility | Output Module |
-| :--- | :--- | :--- |
-| **Participant 1** | FASTA file parsing, sequence type detection (DNA, RNA, Protein), BLAST tool selection (`blastn` vs `blastp`), and NCBI Entrez metadata retrieval. | [`sequence_io.py`](sequence_io.py) |
-| **Participant 2** | Remote query execution via `Bio.Blast.NCBIWWW` against `nt` or `nr` databases, network timeout/exception handling, and raw XML caching. | [`blast_engine.py`](blast_engine.py) |
-| **Participant 3** | XML parsing using `Bio.Blast.NCBIXML`, statistical filtering (E-value / Identity %), and CSV/Excel report generation. | [`report_writer.py`](report_writer.py) |
+This branch contains the isolated scope for **Participant 2 (Mehriban)**: **Remote BLAST Engine Module** (`blast_engine.py`).
 
 ---
 
-## Installation
+## Participant 2 Scope & Deliverables
 
-### 1. Clone the repository:
+| Module | Description | Test Suite | Demo Script |
+| :--- | :--- | :--- | :--- |
+| [`blast_engine.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/blast_engine.py) | BioPython `Bio.Blast.NCBIWWW.qblast()` query execution (`blastn` vs `blastp`), retry & timeout handling, and raw XML caching system (`cache/`). | [`test_blast_engine.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/test_blast_engine.py) | [`demo_blast.py`](file:///Users/macbookairm2/Documents/GitHub/Mystery-Sequence-Identifier-and-BLAST-Automation/demo_blast.py) |
+
+---
+
+## Installation & Setup
+
+1. **Activate Virtual Environment**:
+   ```bash
+   source venv/bin/activate
+   ```
+
+2. **Install Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+---
+
+## Running Participant 2 Module & Tests
+
+### Run Unit Tests
 ```bash
-git clone https://github.com/nexagen-bioinfo/Mystery-Sequence-Identifier-and-BLAST-Automation.git
-cd Mystery-Sequence-Identifier-and-BLAST-Automation
+python test_blast_engine.py
 ```
 
-### 2. Create and activate a virtual environment:
+### Run Interactive Demo
 ```bash
-python3 -m venv venv
-source venv/bin/activate  # macOS / Linux
-# venv\Scripts\activate   # Windows
-```
-
-### 3. Install dependencies:
-```bash
-pip install -r requirements.txt
+python demo_blast.py
 ```
 
 ---
 
-## Usage
+## Module API Documentation
 
-Run the pipeline from the command line using `main.py`:
+```python
+from blast_engine import run_blast, detect_sequence_type
 
-```bash
-python main.py --input data/PZ716984.fasta
+# Detect sequence composition (DNA, RNA, or Protein)
+info = detect_sequence_type(seq_record)
+
+# Execute remote BLAST query and cache raw XML result
+xml_filepath = run_blast(
+    seq_record,
+    cache_dir="cache",
+    force_reblast=False,
+    max_retries=5,
+    retry_delay=30
+)
 ```
-
-### CLI Arguments
-
-```bash
-# Specify custom E-value, Identity %, and Top Hıts threshold:
-python main.py --input data/PZ716984.fasta --evalue 1e-10 --identity 95.0 --top 10
-
-# Force remote BLAST query ignoring cached XML:
-python main.py --input data/PZ716984.fasta --force-reblast
-```
-
-#### Argument Details:
-* `--input` / `-i`: **(Required)** Path to input FASTA sequence file.
-* `--evalue` / `-e`: Maximum E-value cutoff *(Default: 1e-5)*.
-* `--identity` / `-id`: Minimum Identity percentage cutoff *(Default: 90.0)*.
-* `--top` / `-t`: Number of top alignment matches to report *(Default: 5)*.
-* `--force-reblast` / `-f`: Bypass local cache and force new NCBI query.
 
 ---
 
-## Project Structure and Output Files
-
-* **`cache/`**: Contains raw XML response files returned from NCBI queries to prevent redundant network requests.
-* **`reports/`**: Output directory for generated CSV and Excel reports.
-* **`data/`**: Sample FASTA sequences for testing and validation.
-
----
-
-## License and Author Information
-
+## License & Organization
 NEXAGEN Scientific Initiative (2026)
